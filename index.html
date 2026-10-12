@@ -1,0 +1,2339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Malinafix — Партнёрская платформа загородной недвижимости | АТС Малиновка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* DARK THEME (DEFAULT) */
+      --mf-primary: #E11D48;
+      --mf-primary-hover: #BE123C;
+      --mf-primary-glow: rgba(225, 29, 72, 0.35);
+      --mf-bg: #080C15;
+      --mf-surface: #0E1626;
+      --mf-surface-card: #131E33;
+      --mf-surface-card-hover: #1A2845;
+      --mf-border: rgba(255, 255, 255, 0.08);
+      --mf-border-light: rgba(255, 255, 255, 0.16);
+      --mf-text-primary: #F8FAFC;
+      --mf-text-secondary: #94A3B8;
+      --mf-text-muted: #64748B;
+      --mf-success: #10B981;
+      --mf-warning: #F59E0B;
+      --mf-danger: #EF4444;
+      --mf-accent-blue: #38BDF8;
+      --mf-accent-purple: #A855F7;
+      --mf-card-bg-subtle: rgba(255, 255, 255, 0.02);
+      --topbar-bg: rgba(8, 12, 21, 0.92);
+      --bottombar-bg: rgba(8, 12, 21, 0.92);
+      --canvas-particle: rgba(255, 255, 255, 0.2);
+      --canvas-line: rgba(255, 255, 255, 0.08);
+      --topbar-height: 64px;
+      --bottombar-height: 68px;
+    }
+
+    body.light-theme {
+      /* LIGHT THEME */
+      --mf-primary: #E11D48;
+      --mf-primary-hover: #BE123C;
+      --mf-primary-glow: rgba(225, 29, 72, 0.15);
+      --mf-bg: #F8FAFC;
+      --mf-surface: #FFFFFF;
+      --mf-surface-card: #FFFFFF;
+      --mf-surface-card-hover: #F1F5F9;
+      --mf-border: #E2E8F0;
+      --mf-border-light: #CBD5E1;
+      --mf-text-primary: #0F172A;
+      --mf-text-secondary: #475569;
+      --mf-text-muted: #64748B;
+      --mf-success: #059669;
+      --mf-warning: #D97706;
+      --mf-danger: #DC2626;
+      --mf-accent-blue: #0284C7;
+      --mf-accent-purple: #9333EA;
+      --mf-card-bg-subtle: #F1F5F9;
+      --topbar-bg: rgba(255, 255, 255, 0.94);
+      --bottombar-bg: rgba(255, 255, 255, 0.94);
+      --canvas-particle: rgba(15, 23, 42, 0.15);
+      --canvas-line: rgba(15, 23, 42, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    body {
+      background-color: var(--mf-bg);
+      color: var(--mf-text-primary);
+      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* TOP BAR */
+    .top-bar {
+      height: var(--topbar-height);
+      background: var(--topbar-bg);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--mf-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+      flex-shrink: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #E11D48 0%, #9F1239 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #fff;
+      font-size: 1.1rem;
+      box-shadow: 0 0 15px var(--mf-primary-glow);
+    }
+
+    .brand-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--mf-text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-sub {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--mf-text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .top-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-header {
+      background: var(--mf-surface);
+      border: 1px solid var(--mf-border);
+      color: var(--mf-text-secondary);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-header:hover {
+      background: var(--mf-surface-card-hover);
+      color: var(--mf-text-primary);
+      border-color: var(--mf-border-light);
+    }
+
+    .btn-header.accent {
+      background: var(--mf-primary);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .btn-header.accent:hover {
+      background: var(--mf-primary-hover);
+      box-shadow: 0 0 15px var(--mf-primary-glow);
+    }
+
+    .btn-theme-toggle {
+      background: var(--mf-surface);
+      border: 1px solid var(--mf-border);
+      color: var(--mf-text-primary);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-theme-toggle:hover {
+      border-color: var(--mf-primary);
+    }
+
+    /* SLIDES VIEWPORT */
+    .slides-viewport {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(35px) scale(0.99);
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0.35s;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 28px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0) scale(1);
+      z-index: 2;
+    }
+
+    .slide-content {
+      width: 100%;
+      max-width: 1240px;
+      margin: auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* TYPOGRAPHY */
+    .slide-eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--mf-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .slide-title {
+      font-size: clamp(1.7rem, 2.7vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.18;
+      color: var(--mf-text-primary);
+    }
+
+    .slide-subtitle {
+      font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+      color: var(--mf-text-secondary);
+      line-height: 1.5;
+      max-width: 900px;
+    }
+
+    /* CARDS & GRIDS */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--mf-surface-card);
+      border: 1px solid var(--mf-border);
+      border-radius: 14px;
+      padding: 20px;
+      transition: all 0.25s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .card:hover {
+      background: var(--mf-surface-card-hover);
+      border-color: var(--mf-border-light);
+      transform: translateY(-2px);
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--mf-text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-desc {
+      font-size: 0.86rem;
+      color: var(--mf-text-secondary);
+      line-height: 1.5;
+    }
+
+    /* BADGES */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      width: fit-content;
+    }
+
+    .badge-prod {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--mf-success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-plan {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--mf-warning);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .badge-anti {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--mf-danger);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    /* CJM COMPONENTS (CUSTOMER JOURNEY MAP) */
+    .cjm-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .cjm-header-meta {
+      background: var(--mf-card-bg-subtle);
+      border: 1px solid var(--mf-border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .cjm-role-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--mf-text-primary);
+    }
+
+    .cjm-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      position: relative;
+    }
+
+    .cjm-steps-grid.steps-5 {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .cjm-step-card {
+      background: var(--mf-surface-card);
+      border: 1px solid var(--mf-border);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .cjm-step-card:hover {
+      border-color: rgba(225, 29, 72, 0.4);
+      background: var(--mf-surface-card-hover);
+    }
+
+    .cjm-step-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--mf-border);
+      padding-bottom: 8px;
+    }
+
+    .cjm-step-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--mf-primary);
+      background: rgba(225, 29, 72, 0.12);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .cjm-actor {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--mf-accent-blue);
+    }
+
+    .cjm-action-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--mf-text-primary);
+      line-height: 1.3;
+    }
+
+    .cjm-action-detail {
+      font-size: 0.8rem;
+      color: var(--mf-text-secondary);
+      line-height: 1.45;
+    }
+
+    .cjm-tech-pill {
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px dashed var(--mf-border);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--mf-success);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* BOTTOM BAR */
+    .bottom-bar {
+      height: var(--bottombar-height);
+      background: var(--bottombar-bg);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--mf-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+      flex-shrink: 0;
+    }
+
+    .slide-indicator {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--mf-text-muted);
+    }
+    .slide-indicator span {
+      color: var(--mf-text-primary);
+      font-size: 1.05rem;
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-nav {
+      background: var(--mf-surface);
+      border: 1px solid var(--mf-border);
+      color: var(--mf-text-primary);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 1.2rem;
+    }
+
+    .btn-nav:hover:not(:disabled) {
+      background: var(--mf-primary);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 0 15px var(--mf-primary-glow);
+    }
+
+    .btn-nav:disabled {
+      opacity: 0.25;
+      cursor: not-allowed;
+    }
+
+    .dots-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--mf-border-light);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dot.active {
+      width: 20px;
+      background: var(--mf-primary);
+      box-shadow: 0 0 10px var(--mf-primary-glow);
+    }
+
+    .progress-bar-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--mf-border);
+      z-index: 101;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--mf-primary);
+      width: 7.7%;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 8px var(--mf-primary);
+    }
+
+    /* DRAWER MENU */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      z-index: 200;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .drawer-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 440px;
+      max-width: 90vw;
+      background: var(--mf-surface);
+      border-left: 1px solid var(--mf-border);
+      z-index: 201;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: -10px 0 40px rgba(0,0,0,0.3);
+    }
+
+    .drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--mf-border);
+    }
+
+    .drawer-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--mf-text-primary);
+    }
+
+    .drawer-close {
+      background: transparent;
+      border: none;
+      color: var(--mf-text-muted);
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .drawer-list {
+      list-style: none;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .drawer-item {
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--mf-text-secondary);
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .drawer-item:hover {
+      background: var(--mf-surface-card-hover);
+      color: var(--mf-text-primary);
+    }
+
+    .drawer-item.active {
+      background: rgba(225, 29, 72, 0.12);
+      border-color: rgba(225, 29, 72, 0.3);
+      color: var(--mf-text-primary);
+      font-weight: 600;
+    }
+
+    .drawer-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--mf-primary);
+      width: 24px;
+      font-weight: 700;
+    }
+
+    /* CANVAS HERO */
+    #heroCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: auto;
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 950px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .stat-card {
+      background: var(--mf-surface-card);
+      border: 1px solid var(--mf-border);
+      border-radius: 14px;
+      padding: 16px 12px;
+      text-align: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--mf-text-primary);
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: -0.03em;
+    }
+
+    .stat-label {
+      font-size: 0.76rem;
+      color: var(--mf-text-secondary);
+      margin-top: 4px;
+      font-weight: 500;
+      line-height: 1.25;
+    }
+
+    /* TABS */
+    .tab-nav {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--mf-border);
+      padding-bottom: 10px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: var(--mf-surface);
+      border: 1px solid var(--mf-border);
+      color: var(--mf-text-secondary);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      background: var(--mf-surface-card-hover);
+      color: var(--mf-text-primary);
+    }
+
+    .tab-btn.active {
+      background: var(--mf-primary);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 0 15px var(--mf-primary-glow);
+    }
+
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* CALCULATOR */
+    .calc-box {
+      background: var(--mf-surface-card);
+      border: 1px solid var(--mf-border);
+      border-radius: 16px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .calc-control {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .calc-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--mf-text-secondary);
+    }
+
+    .calc-val {
+      color: var(--mf-text-primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+    }
+
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      background: var(--mf-border);
+      border-radius: 3px;
+      outline: none;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--mf-primary);
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--mf-primary-glow);
+    }
+
+    .calc-results {
+      background: var(--mf-card-bg-subtle);
+      border: 1px solid var(--mf-border);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .calc-res-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--mf-border);
+    }
+
+    .calc-res-label {
+      font-size: 0.82rem;
+      color: var(--mf-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .calc-res-num {
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--mf-text-primary);
+    }
+
+    .calc-res-num.highlight {
+      color: var(--mf-success);
+      font-size: 1.3rem;
+    }
+
+    .split-bar {
+      height: 10px;
+      background: var(--mf-border);
+      border-radius: 5px;
+      overflow: hidden;
+      display: flex;
+      margin-top: 6px;
+    }
+
+    .split-seg {
+      height: 100%;
+      transition: width 0.3s ease;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 960px) {
+      .slide {
+        padding: 20px 16px;
+      }
+      .grid-2, .grid-3, .grid-4, .calc-box {
+        grid-template-columns: 1fr !important;
+      }
+      .cjm-steps-grid, .cjm-steps-grid.steps-5 {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+      }
+      .hero-stats {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+      }
+      .top-bar {
+        padding: 0 14px;
+      }
+      .brand-title {
+        font-size: 0.95rem;
+      }
+      .brand-sub {
+        display: none;
+      }
+      .dots-nav {
+        display: none;
+      }
+      .slide-title {
+        font-size: 1.45rem !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <header class="top-bar">
+    <div class="brand" onclick="goToSlide(0)">
+      <div class="brand-icon">M</div>
+      <div>
+        <div class="brand-title">Malinafix</div>
+        <div class="brand-sub">АТС Малиновка • Партнёрская платформа</div>
+      </div>
+    </div>
+
+    <div class="top-controls">
+      <button class="btn-theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Сменить тему оформления">
+        <span id="themeIcon">☀️</span> <span id="themeLabel">Светлая тема</span>
+      </button>
+      <a href="print.html" target="_blank" class="btn-header" title="Открыть отчёт для печати в формате А4">
+        <span>🖨️</span> <span>Отчёт А4 (ч/б)</span>
+      </a>
+      <button class="btn-header" onclick="toggleFullscreen()" title="Полноэкранный режим">
+        <span>⛶</span>
+      </button>
+      <button class="btn-header" onclick="toggleDrawer()" title="Оглавление разделов">
+        <span>☰</span> <span>Содержание</span>
+      </button>
+      <a href="https://malinafix.ru" target="_blank" class="btn-header accent">
+        <span>malinafix.ru ↗</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="slides-viewport">
+
+    <!-- SLIDE 1: COVER & OVERVIEW -->
+    <section class="slide active" id="slide-0">
+      <canvas id="heroCanvas"></canvas>
+      <div class="hero-content">
+        <div class="slide-eyebrow">
+          <span>⚡</span> Презентация платформы для руководства девелопера «АТС Малиновка»
+        </div>
+        <h1 class="slide-title">
+          Malinafix: Партнёрская платформа загородной недвижимости
+        </h1>
+        <p class="slide-subtitle">
+          Цифровая инфраструктура девелопера «АТС Малиновка»: прозрачная дистрибуция участков, домов и подрядов через брокеров и сети стройматериалов. Гарантированная защита клиентов от перехвата, сквозная интеграция с amoCRM и финансовый клиринг.
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat-card">
+            <div class="stat-number" style="color:var(--mf-primary);">80%</div>
+            <div class="stat-label">Комиссионный пул партнёрам (до 480 000 ₽ со сделки)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" style="color:var(--mf-success);">1 сек</div>
+            <div class="stat-label">Скорость дедупликации и цифровой фиксации</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" style="color:var(--mf-accent-blue);">30–180 дн</div>
+            <div class="stat-label">Срок действия защиты бронирования клиента</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" style="color:var(--mf-warning);">amoCRM</div>
+            <div class="stat-label">Двусторонний синк через транзакционный Outbox</div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;justify-content:center;">
+          <button class="btn-header accent" style="padding:12px 24px;font-size:0.92rem;" onclick="goToSlide(1)">
+            Изучить экосистему →
+          </button>
+          <button class="btn-header" style="padding:12px 20px;font-size:0.92rem;" onclick="goToSlide(3)">
+            Карты процессов (CJM)
+          </button>
+          <a href="print.html" target="_blank" class="btn-header" style="padding:12px 20px;font-size:0.92rem;">
+            Печатная версия А4 (ч/б)
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: STRATEGIC CONTEXT & SOLUTION -->
+    <section class="slide" id="slide-1">
+      <div class="slide-content">
+        <div>
+          <div class="slide-eyebrow">Рыночный контекст</div>
+          <h2 class="slide-title">Проблема классического рынка загородной недвижимости</h2>
+          <p class="slide-subtitle">
+            Загородный девелопмент традиционно теряет до 40% потенциальных сделок из-за разрозненности участников, взаимного недоверия и ручных согласований.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card" style="border-top:3px solid var(--mf-danger);">
+            <div class="card-title">
+              <span style="color:var(--mf-danger);">✕</span> Риски брокеров и агентств
+            </div>
+            <div class="card-desc">
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+                <li>• <b>Страх потери контакта:</b> риелтор опасается называть посёлок покупателю из-за риска прямого звонка в отдел продаж без комиссии.</li>
+                <li>• <b>Задержки выплат:</b> отсутствие стандартизированных договоров приводит к затягиванию расчётов на месяцы.</li>
+                <li>• <b>Неактуальные остатки:</b> отсутствие единого реестра свободных лотов требует постоянных звонков в ОП.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card" style="border-top:3px solid var(--mf-warning);">
+            <div class="card-title">
+              <span style="color:var(--mf-warning);">✕</span> Проблемы девелопера «АТС Малиновка»
+            </div>
+            <div class="card-desc">
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+                <li>• <b>Конфликты за авторство лидов:</b> несколько агентов присылают один номер задним числом после рекламы застройщика.</li>
+                <li>• <b>Перегрузка менеджеров:</b> менеджеры ОП тратят рабочее время на споры с агентами вместо показов на объекте.</li>
+                <li>• <b>Слепая воронка:</b> застройщик не видит, почему сорвалась сделка на стороне внешнего брокера.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card" style="border-top:3px solid var(--mf-success);">
+            <div class="card-title">
+              <span style="color:var(--mf-success);">✓</span> Решение платформы Malinafix
+            </div>
+            <div class="card-desc">
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+                <li>• <b>Фиксация со штампом времени:</b> проверка за 1 секунду закрепляет клиента на 30–180 дней при отсутствии обращений в ОП за 30 дней.</li>
+                <li>• <b>Сквозной Outbox:</b> перемещение сделки в amoCRM автоматически обновляет статус в личном кабинете агента.</li>
+                <li>• <b>Объединение 4 рынков:</b> продажа земельных участков, готовых домов, строительного подряда и сетей стройматериалов в одной системе.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: RBAC ROLE ARCHITECTURE -->
+    <section class="slide" id="slide-2">
+      <div class="slide-content">
+        <div>
+          <div class="slide-eyebrow">Архитектура ролей и доступов</div>
+          <h2 class="slide-title">Ролевая модель: 4 изолированных контура участников</h2>
+          <p class="slide-subtitle">
+            Строгая ролевая изоляция на уровне базы PostgreSQL: каждый участник видит только свои сделки, комиссионные и разрешённые экраны.
+          </p>
+        </div>
+
+        <div class="tab-nav">
+          <button class="tab-btn active" onclick="switchRoleTab(0, this)">1. Дистрибуция (Брокеры & АН)</button>
+          <button class="tab-btn" onclick="switchRoleTab(1, this)">2. Девелопмент (Застройщик & ОП)</button>
+          <button class="tab-btn" onclick="switchRoleTab(2, this)">3. Сети стройматериалов («Матрёшка»)</button>
+          <button class="tab-btn" onclick="switchRoleTab(3, this)">4. Оператор платформы</button>
+        </div>
+
+        <!-- Role Tab 1 -->
+        <div class="tab-pane active" id="role-pane-0">
+          <div class="grid-2">
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div class="card-title">Агент / Риелтор (AGENT)</div>
+                <span class="badge badge-prod">Продакшн</span>
+              </div>
+              <div class="card-desc">
+                <b>Функции роли:</b> Быстрая фиксация покупателя с защитой бронирования; каталог посёлков АТС Малиновка с кадастровыми номерами Росреестра; чат по сделке с загрузкой файлов в S3.<br><br>
+                <b>Ценность:</b> Гарантия защиты сделки и высокая комиссия (80% пула, до 480 000 ₽ со сделки).
+              </div>
+            </div>
+
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div class="card-title">Руководитель АН (AGENCY_LEAD)</div>
+                <span class="badge badge-prod">Продакшн</span>
+              </div>
+              <div class="card-desc">
+                <b>Функции роли:</b> Подключение агентства, генерация инвайт-ссылок для сотрудников, сводный дашборд всех фиксаций компании.<br><br>
+                <b>Ценность:</b> Исключение сделок брокеров в обход агентства, централизованный биллинг и прозрачность команды.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Role Tab 2 -->
+        <div class="tab-pane" id="role-pane-1">
+          <div class="grid-2">
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div class="card-title">Руководитель застройщика (DEVELOPER_HEAD)</div>
+                <span class="badge badge-prod">Продакшн</span>
+              </div>
+              <div class="card-desc">
+                <b>Функции роли:</b> Загрузка каталога посёлков, свободных участков и проектов домов; интеграция с корпоративной amoCRM.<br><br>
+                <b>Ценность:</b> Масштабирование партнёрских продаж без расширения собственного штата менеджеров.
+              </div>
+            </div>
+
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div class="card-title">Менеджер отдела продаж (DEVELOPER_STAFF)</div>
+                <span class="badge badge-prod">Продакшн</span>
+              </div>
+              <div class="card-desc">
+                <b>Функции роли:</b> Приём лидов в amoCRM, проведение показов в посёлках (Honkaniemi, Sawoda, HYTTE), перемещение сделки по воронке.<br><br>
+                <b>Ценность:</b> Готовые квалифицированные покупатели, отсутствие споров с риелторами.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Role Tab 3 -->
+        <div class="tab-pane" id="role-pane-2">
+          <div class="grid-3">
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div class="card-title">База стройматериалов</div>
+                <span class="badge badge-prod">Продакшн</span>
+              </div>
+              <div class="card-desc">
+                <b>PARTNER_COMPANY:</b> Строительный торговый дом / сеть баз снабжения (например, «Материк»). Получает <b>20%</b> партнёрского пула со всех сделок прикрепленных строителей.
+              </div>
+            </div>
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div class="card-title">Менеджер торгового зала</div>
+                <span class="badge badge-prod">Продакшн</span>
+              </div>
+              <div class="card-desc">
+                <b>PARTNER_EMPLOYEE:</b> Специалист отдела комплектации / кассы. Раздает свои промо-карточки постоянным бригадирам и прорабам. Получает <b>20%</b> пула.
+              </div>
+            </div>
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div class="card-title">Прораб / Бригадир</div>
+                <span class="badge badge-prod">Продакшн</span>
+              </div>
+              <div class="card-desc">
+                <b>FOREMAN:</b> Фиксирует клиентов, ищущих землю под стройку, по персональному QR-коду за 10 секунд. Получает <b>60%</b> пула (до 192 000 ₽ со сделки).
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Role Tab 4 -->
+        <div class="tab-pane" id="role-pane-3">
+          <div class="grid-2">
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div class="card-title">Администратор платформы (SUPER_ADMIN)</div>
+                <span class="badge badge-prod">Продакшн</span>
+              </div>
+              <div class="card-desc">
+                <b>Функции роли:</b> Верификация новых участников (очередь `PendingApproval`), мониторинг транзакционного Outbox, управление комиссионными ставками, финансовый аудит.
+              </div>
+            </div>
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div class="card-title">Служба безопасности и антифрод</div>
+                <span class="badge badge-prod">Продакшн</span>
+              </div>
+              <div class="card-desc">
+                <b>Функции роли:</b> Предотвращение накруток и фиктивных бронирований, валидация телефонных номеров, проверка HMAC подписи вебхуков, арбитраж пересечений.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: CJM 1 - CLIENT FIXATION -->
+    <section class="slide" id="slide-3">
+      <div class="slide-content">
+        <div>
+          <div class="slide-eyebrow">Customer Journey Map • Задача №1</div>
+          <h2 class="slide-title">CJM 1: Фиксация и защита покупателя (Анти-перехват)</h2>
+          <p class="slide-subtitle">
+            Процесс закрепления покупателя за брокером с фиксацией авторства лида в базе данных и amoCRM девелопера.
+          </p>
+        </div>
+
+        <div class="cjm-container">
+          <div class="cjm-header-meta">
+            <div class="cjm-role-pill">
+              <span style="color:var(--mf-primary);">👤 Актёр:</span> Агент / Риелтор (AGENT) или Прораб (FOREMAN)
+            </div>
+            <div style="font-size:0.82rem;color:var(--mf-text-secondary);">
+              <b>Результат:</b> Защита бронирования покупателя со штампом времени в PostgreSQL и сделкой в amoCRM.
+            </div>
+            <span class="badge badge-prod">Продакшн</span>
+          </div>
+
+          <div class="cjm-steps-grid">
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">01</span>
+                <span class="cjm-actor">Брокер</span>
+              </div>
+              <div class="cjm-action-title">Ввод номера клиента</div>
+              <div class="cjm-action-detail">
+                Брокер вбивает номер телефона покупателя (+7...) и ФИО в интерфейсе быстрой фиксации.
+              </div>
+              <div class="cjm-tech-pill">⚡ Нормализация clientPhoneClean</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">02</span>
+                <span class="cjm-actor">Система Malinafix</span>
+              </div>
+              <div class="cjm-action-title">Сверка за 1 секунду</div>
+              <div class="cjm-action-detail">
+                Авто-проверка по двум базам: 1) нет ли активной брони другого агента; 2) не обращался ли клиент в ОП застройщика за 30 дней.
+              </div>
+              <div class="cjm-tech-pill">⚡ Индекс PostgreSQL + API amoCRM v4</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">03</span>
+                <span class="cjm-actor">Брокер</span>
+              </div>
+              <div class="cjm-action-title">Выбор направления</div>
+              <div class="cjm-action-detail">
+                Агент выбирает воронку: Земельные участки (LAND_PLOTS), Дома (READY_HOUSES) или Подряд (HOUSE_CONSTRUCTION).
+              </div>
+              <div class="cjm-tech-pill">⚡ Привязка settlement / lotId</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">04</span>
+                <span class="cjm-actor">Платформа & amoCRM</span>
+              </div>
+              <div class="cjm-action-title">Бронь на 30–180 дней</div>
+              <div class="cjm-action-detail">
+                Фиксация с неизменяемым штампом времени. В amoCRM девелопера создается сделка с меткой агента. Брокер спокоен.
+              </div>
+              <div class="cjm-tech-pill">⚡ Диспетчер CrmSyncOutbox</div>
+            </div>
+          </div>
+
+          <div class="card" style="background:var(--mf-card-bg-subtle);padding:14px 18px;">
+            <div style="font-size:0.85rem;color:var(--mf-text-secondary);display:flex;align-items:center;gap:12px;">
+              <span style="color:var(--mf-success);font-weight:700;">✓ Защита интересов сторон:</span>
+              Если покупатель обращается в отдел продаж «АТС Малиновка» напрямую, менеджер видит карточку с авторством агента — риск конфликтов и спорных комиссий исключён.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: CJM 2 - CATALOG & LOT SELECTION -->
+    <section class="slide" id="slide-4">
+      <div class="slide-content">
+        <div>
+          <div class="slide-eyebrow">Customer Journey Map • Задача №2</div>
+          <h2 class="slide-title">CJM 2: Каталог посёлков, подбор объектов и просмотр</h2>
+          <p class="slide-subtitle">
+            Процесс подбора земельных участков и проектов домов «АТС Малиновка» с кадастровыми номерами Росреестра и согласованием просмотра.
+          </p>
+        </div>
+
+        <div class="cjm-container">
+          <div class="cjm-header-meta">
+            <div class="cjm-role-pill">
+              <span style="color:var(--mf-primary);">👤 Актёр:</span> Агент / Риелтор (AGENT)
+            </div>
+            <div style="font-size:0.82rem;color:var(--mf-text-secondary);">
+              <b>Результат:</b> Подбор конкретного лота с подтверждённым кадастром и согласование выезда в посёлок.
+            </div>
+            <span class="badge badge-prod">Продакшн</span>
+          </div>
+
+          <div class="cjm-steps-grid">
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">01</span>
+                <span class="cjm-actor">Брокер</span>
+              </div>
+              <div class="cjm-action-title">Интерактивная карта КП</div>
+              <div class="cjm-action-detail">
+                Брокер открывает витрину посёлков: Honkaniemi (Финский залив), Sawoda (Приозерский р-н), HYTTE (хвойный лес), Елизаветинское, Юрки.
+              </div>
+              <div class="cjm-tech-pill">⚡ Интерактивная карта посёлков</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">02</span>
+                <span class="cjm-actor">Брокер</span>
+              </div>
+              <div class="cjm-action-title">Фильтрация параметров</div>
+              <div class="cjm-action-detail">
+                Фильтрация участков по площади (сотки), наличию газа/электричества, статусу (Свободен / Бронь) и бюджету покупателя.
+              </div>
+              <div class="cjm-tech-pill">⚡ Фильтры по модели MarketLot</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">03</span>
+                <span class="cjm-actor">Система Malinafix</span>
+              </div>
+              <div class="cjm-action-title">Кадастровые данные</div>
+              <div class="cjm-action-detail">
+                Отображение официального кадастрового номера Росреестра, координат участка и прикреплённых типовых проектов домов.
+              </div>
+              <div class="cjm-tech-pill">⚡ Кадастровые номера Росреестра</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">04</span>
+                <span class="cjm-actor">Брокер & ОП</span>
+              </div>
+              <div class="cjm-action-title">Назначение просмотра</div>
+              <div class="cjm-action-detail">
+                Выбор даты и времени выезда на объект с покупателем. Автоматическое уведомление менеджера отдела продаж посёлка.
+              </div>
+              <div class="cjm-tech-pill">⚡ Статус MEETING_SCHEDULED</div>
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <div class="card">
+              <div class="card-title">КП «Honkaniemi» (Финский залив)</div>
+              <div class="card-desc">
+                Бизнес-класс, участки от 12 до 25 соток. Все центральные коммуникации (газ, вода, 15 кВт), закрытая охраняемая территория, статус ИЖС.
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">КП «Sawoda» (Приозерский р-н)</div>
+              <div class="card-desc">
+                Скандинавский квартал, единый архитектурный код. Дома из клееного бруса, готовые проекты от 140 м², асфальтированные проезды.
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-title">КП «HYTTE» (Хвойный лес)</div>
+              <div class="card-desc">
+                Камерный лесной посёлок на 34 домовладения. Собственный выход к озеру, охраняемый периметр, панорамные виды на вековой лес.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: CJM 3 - DEVELOPER AMOCRM SYNC -->
+    <section class="slide" id="slide-5">
+      <div class="slide-content">
+        <div>
+          <div class="slide-eyebrow">Customer Journey Map • Задача №3</div>
+          <h2 class="slide-title">CJM 3: Обработка заявки девелопером и amoCRM Outbox</h2>
+          <p class="slide-subtitle">
+            Как отдел продаж «АТС Малиновка» ведёт сделку в корпоративной amoCRM с автоматической трансляцией этапов брокеру.
+          </p>
+        </div>
+
+        <div class="cjm-container">
+          <div class="cjm-header-meta">
+            <div class="cjm-role-pill">
+              <span style="color:var(--mf-primary);">👤 Актёр:</span> Менеджер отдела продаж (DEVELOPER_STAFF) & amoCRM
+            </div>
+            <div style="font-size:0.82rem;color:var(--mf-text-secondary);">
+              <b>Результат:</b> Исключение ручной переписки в мессенджерах, сквозной контроль движения сделки.
+            </div>
+            <span class="badge badge-prod">Продакшн</span>
+          </div>
+
+          <div class="cjm-steps-grid">
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">01</span>
+                <span class="cjm-actor">amoCRM девелопера</span>
+              </div>
+              <div class="cjm-action-title">Авто-приём сделки</div>
+              <div class="cjm-action-detail">
+                Сделка автоматически создается в первом этапе воронки («Фиксация от Malinafix») с контактами клиента, посёлком и карточкой агента.
+              </div>
+              <div class="cjm-tech-pill">⚡ Диспетчер CrmSyncOutbox</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">02</span>
+                <span class="cjm-actor">Менеджер ОП</span>
+              </div>
+              <div class="cjm-action-title">Показ в посёлке</div>
+              <div class="cjm-action-detail">
+                Менеджер ОП встречает покупателя и брокера на объекте, проводит экскурсию и переводит сделку на этап «Показ проведён».
+              </div>
+              <div class="cjm-tech-pill">⚡ Вебхук amoCRM с HMAC-подписью</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">03</span>
+                <span class="cjm-actor">Платформа & Агент</span>
+              </div>
+              <div class="cjm-action-title">Зеркальный синк в ЛК</div>
+              <div class="cjm-action-detail">
+                Транзакционный Outbox платформы автоматически меняет этап у агента на `IN_PROGRESS` / `MEETING_SCHEDULED`. Срок брони продлевается.
+              </div>
+              <div class="cjm-tech-pill">⚡ LeadTimelineEvent запись в БД</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">04</span>
+                <span class="cjm-actor">ОП & Агент</span>
+              </div>
+              <div class="cjm-action-title">Чат сделки и сметы в S3</div>
+              <div class="cjm-action-detail">
+                В карточке сделки доступен изолированный чат с загрузкой файлов, проектов и смет в защищённое S3-хранилище.
+              </div>
+              <div class="cjm-tech-pill">⚡ LeadChatMessage + S3 Bucket</div>
+            </div>
+          </div>
+
+          <div class="card" style="background:var(--mf-card-bg-subtle);padding:14px 18px;">
+            <div style="font-size:0.85rem;color:var(--mf-text-secondary);display:flex;align-items:center;gap:12px;">
+              <span style="color:var(--mf-accent-blue);font-weight:700;">⚙️ Архитектурная надёжность:</span>
+              Транзакционный Outbox гарантирует доставку статусов даже при временных сетевых задержках или технических работах на стороне amoCRM.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: CJM 4 - AGENCY MANAGEMENT -->
+    <section class="slide" id="slide-6">
+      <div class="slide-content">
+        <div>
+          <div class="slide-eyebrow">Customer Journey Map • Задача №4</div>
+          <h2 class="slide-title">CJM 4: Управление агентством недвижимости (Командный контур)</h2>
+          <p class="slide-subtitle">
+            Как руководитель агентства недвижимости организует работу команды брокеров и защищает доход компании.
+          </p>
+        </div>
+
+        <div class="cjm-container">
+          <div class="cjm-header-meta">
+            <div class="cjm-role-pill">
+              <span style="color:var(--mf-primary);">👤 Актёр:</span> Руководитель АН (AGENCY_LEAD)
+            </div>
+            <div style="font-size:0.82rem;color:var(--mf-text-secondary);">
+              <b>Результат:</b> 100% прозрачность сделок сотрудников агентства, централизованный биллинг.
+            </div>
+            <span class="badge badge-prod">Продакшн</span>
+          </div>
+
+          <div class="cjm-steps-grid">
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">01</span>
+                <span class="cjm-actor">Руководитель АН</span>
+              </div>
+              <div class="cjm-action-title">Регистрация агентства</div>
+              <div class="cjm-action-detail">
+                Руководитель указывает ИНН юридического лица, форму расчётов компании и реквизиты расчётного счёта.
+              </div>
+              <div class="cjm-tech-pill">⚡ Модель Agency в PostgreSQL</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">02</span>
+                <span class="cjm-actor">Руководитель АН</span>
+              </div>
+              <div class="cjm-action-title">Инвайты сотрудникам</div>
+              <div class="cjm-action-detail">
+                Генерация персональной инвайт-ссылки. Брокеры авторизуются по СМС и автоматически прикрепляются к пулу компании.
+              </div>
+              <div class="cjm-tech-pill">⚡ Fast OTP + agencyId binding</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">03</span>
+                <span class="cjm-actor">Кабинет АН</span>
+              </div>
+              <div class="cjm-action-title">Единый дашборд сделок</div>
+              <div class="cjm-action-detail">
+                Руководитель видит сквозной реестр фиксаций сотрудников: статус бронирования, посёлок, дату показа и сумму комиссий.
+              </div>
+              <div class="cjm-tech-pill">⚡ Фильтрация по agencyId</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">04</span>
+                <span class="cjm-actor">АН & Платформа</span>
+              </div>
+              <div class="cjm-action-title">Клиринг и расчёты</div>
+              <div class="cjm-action-detail">
+                При закрытии сделки вознаграждение начисляется на расчётный счёт агентства с формированием официального акта.
+              </div>
+              <div class="cjm-tech-pill">⚡ Статус ACT_APPROVED / PAID</div>
+            </div>
+          </div>
+
+          <div class="card" style="background:var(--mf-card-bg-subtle);padding:14px 18px;">
+            <div style="font-size:0.85rem;color:var(--mf-text-secondary);display:flex;align-items:center;gap:12px;">
+              <span style="color:var(--mf-accent-purple);font-weight:700;">🏢 Значение для масштабирования:</span>
+              Крупные агентские сети работают с застройщиком только при наличии выделенного кабинета руководителя, гарантирующего защиту от сделок «мимо кассы» агентства.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: CJM 5 - BUILDING MATERIALS PARTNER NETWORK -->
+    <section class="slide" id="slide-7">
+      <div class="slide-content">
+        <div>
+          <div class="slide-eyebrow">Customer Journey Map • Задача №5</div>
+          <h2 class="slide-title">CJM 5: Партнёрская сеть стройматериалов («Матрёшка»)</h2>
+          <p class="slide-subtitle">
+            Канал привлечения покупателей участков и подрядов через строительные торговые дома (например, «Материк») и прорабов без затрат на контекстную рекламу.
+          </p>
+        </div>
+
+        <div class="cjm-container">
+          <div class="cjm-header-meta">
+            <div class="cjm-role-pill">
+              <span style="color:var(--mf-primary);">👤 Актёры:</span> Торговый дом стройматериалов → Менеджер торгового зала → Прораб
+            </div>
+            <div style="font-size:0.82rem;color:var(--mf-text-secondary);">
+              <b>Результат:</b> Поток покупателей земли прямо со строительных объектов с оплатой только за результат.
+            </div>
+            <span class="badge badge-prod">Продакшн</span>
+          </div>
+
+          <div class="cjm-steps-grid steps-5">
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">01</span>
+                <span class="cjm-actor">База стройматериалов</span>
+              </div>
+              <div class="cjm-action-title">Стойка в торговом зале</div>
+              <div class="cjm-action-detail">
+                Строительный торговый дом размещает информационную стойку Malinafix и подключает менеджеров к программе.
+              </div>
+              <div class="cjm-tech-pill">⚡ PARTNER_COMPANY (20% пула)</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">02</span>
+                <span class="cjm-actor">Менеджер на кассе</span>
+              </div>
+              <div class="cjm-action-title">Выдача карты прорабу</div>
+              <div class="cjm-action-detail">
+                Менеджер вручает постоянному прорабу брендированную промо-карту с персональным QR-кодом при отгрузке материалов.
+              </div>
+              <div class="cjm-tech-pill">⚡ PARTNER_EMPLOYEE (20% пула)</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">03</span>
+                <span class="cjm-actor">Прораб на объекте</span>
+              </div>
+              <div class="cjm-action-title">Запрос от заказчика</div>
+              <div class="cjm-action-detail">
+                Заказчик строительства спрашивает прораба: «Где купить участок под второй дом или баню?». Прораб открывает камеру смартфона.
+              </div>
+              <div class="cjm-tech-pill">⚡ FOREMAN (60% пула)</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">04</span>
+                <span class="cjm-actor">Смартфон прораба</span>
+              </div>
+              <div class="cjm-action-title">Ввод за 10 секунд</div>
+              <div class="cjm-action-detail">
+                Открывается быстрая мобильная форма без логинов и паролей. Прораб вбивает телефон заказчика. Лид зафиксирован за связкой.
+              </div>
+              <div class="cjm-tech-pill">⚡ Fast Lead Fixation API</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">05</span>
+                <span class="cjm-actor">Платформа & Банк</span>
+              </div>
+              <div class="cjm-action-title">Сплит 60 / 20 / 20</div>
+              <div class="cjm-action-detail">
+                При закрытии сделки: прораб получает 192 000 ₽, менеджер кассы — 64 000 ₽, торговый дом — 64 000 ₽.
+              </div>
+              <div class="cjm-tech-pill">⚡ Автоматический клиринг</div>
+            </div>
+          </div>
+
+          <div class="card" style="background:var(--mf-card-bg-subtle);padding:14px 18px;">
+            <div style="font-size:0.85rem;color:var(--mf-text-secondary);display:flex;align-items:center;gap:12px;">
+              <span style="color:var(--mf-primary);font-weight:700;">💡 Экономика привлечения:</span>
+              Стоимость привлечения загородного клиента через контекстную рекламу составляет 15 000–35 000 ₽ за целевой лид. Через партнёрскую сеть строительных баз расходы на рекламу равны <b>0 ₽</b> — оплата происходит строго по факту успешной сделки из партнёрского пула.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: CJM 6 - FINANCIAL CLEARING & CALCULATOR -->
+    <section class="slide" id="slide-8">
+      <div class="slide-content">
+        <div>
+          <div class="slide-eyebrow">Customer Journey Map • Задача №6</div>
+          <h2 class="slide-title">CJM 6: Финансовый клиринг и выплата вознаграждений</h2>
+          <p class="slide-subtitle">
+            Прозрачный цикл движения денег: от поступления средств застройщику до формирования закрывающих актов и выплат брокерам.
+          </p>
+        </div>
+
+        <div class="calc-box">
+          <div>
+            <div style="font-size:0.95rem;font-weight:700;color:var(--mf-text-primary);margin-bottom:14px;display:flex;align-items:center;gap:8px;">
+              <span>🧮</span> Интерактивный калькулятор клиринга
+            </div>
+
+            <div class="calc-control">
+              <div class="calc-label">
+                <span>Стоимость сделки (участок / дом / подряд):</span>
+                <span class="calc-val" id="calcPriceLabel">10 000 000 ₽</span>
+              </div>
+              <input type="range" id="calcPrice" min="3000000" max="30000000" step="500000" value="10000000" oninput="updateCalculator()">
+            </div>
+
+            <div class="calc-control">
+              <div class="calc-label">
+                <span>Комиссия девелопера:</span>
+                <span class="calc-val" id="calcRateLabel">4.0%</span>
+              </div>
+              <input type="range" id="calcRate" min="2" max="6" step="0.5" value="4" oninput="updateCalculator()">
+            </div>
+
+            <div style="margin-top:16px;">
+              <div style="font-size:0.82rem;font-weight:600;margin-bottom:8px;color:var(--mf-text-secondary);">Схема клиринга:</div>
+              <div style="display:flex;gap:10px;">
+                <button class="tab-btn active" id="btnModeStd" onclick="setCalcMode('std')">Стандарт (80 / 20)</button>
+                <button class="tab-btn" id="btnModeMat" onclick="setCalcMode('mat')">Матрёшка (60 / 20 / 20)</button>
+              </div>
+            </div>
+
+            <div style="margin-top:20px;">
+              <div style="font-size:0.78rem;color:var(--mf-text-muted);margin-bottom:6px;">Сплит комиссии в реальном времени:</div>
+              <div class="split-bar">
+                <div class="split-seg" id="segAgent" style="width:80%;background:var(--mf-success);" title="Партнёрский пул"></div>
+                <div class="split-seg" id="segPlatform" style="width:20%;background:var(--mf-primary);" title="Платформа"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--mf-text-secondary);margin-top:4px;">
+                <span id="segAgentLabel">Партнёры: 80% (320 000 ₽)</span>
+                <span>Malinafix: 20% (80 000 ₽)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="calc-results">
+            <div style="font-size:0.95rem;font-weight:700;color:var(--mf-text-primary);margin-bottom:6px;">Смета расчётов и закрывающие документы</div>
+
+            <div class="calc-res-row">
+              <div class="calc-res-label">Валовая комиссия продавца:</div>
+              <div class="calc-res-num" id="resGross">400 000 ₽</div>
+            </div>
+
+            <div id="resStandardBlock">
+              <div class="calc-res-row">
+                <div class="calc-res-label">Выплата брокеру / АН (80%):</div>
+                <div class="calc-res-num highlight" id="resAgent">320 000 ₽</div>
+              </div>
+              <div class="calc-res-row">
+                <div class="calc-res-label">Выручка платформы Malinafix (20%):</div>
+                <div class="calc-res-num" id="resPlatform">80 000 ₽</div>
+              </div>
+              <div class="calc-res-row" style="border:none;padding-bottom:0;">
+                <div class="calc-res-label">Реферальный бонус пригласителю (5%):</div>
+                <div class="calc-res-num" style="color:var(--mf-accent-blue);" id="resReferral">16 000 ₽</div>
+              </div>
+            </div>
+
+            <div id="resMatryoshkaBlock" style="display:none;">
+              <div class="calc-res-row">
+                <div class="calc-res-label">Бригадир / Прораб (60% пула):</div>
+                <div class="calc-res-num highlight" id="resForeman">192 000 ₽</div>
+              </div>
+              <div class="calc-res-row">
+                <div class="calc-res-label">Менеджер на кассе (20% пула):</div>
+                <div class="calc-res-num" style="color:var(--mf-accent-blue);" id="resEmployee">64 000 ₽</div>
+              </div>
+              <div class="calc-res-row">
+                <div class="calc-res-label">База стройматериалов (20% пула):</div>
+                <div class="calc-res-num" style="color:var(--mf-warning);" id="resCompany">64 000 ₽</div>
+              </div>
+              <div class="calc-res-row" style="border:none;padding-bottom:0;">
+                <div class="calc-res-label">Выручка платформы Malinafix (20%):</div>
+                <div class="calc-res-num" id="resPlatformMat">80 000 ₽</div>
+              </div>
+            </div>
+
+            <div style="font-size:0.75rem;color:var(--mf-text-muted);border-top:1px solid var(--mf-border);padding-top:10px;line-height:1.4;">
+              Формируются официальные акты оказания услуг. Выплаты самозанятым, ИП и юрлицам проводятся с чеками ФНС.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: CJM 7 - MODERATION & ANTIFRAUD -->
+    <section class="slide" id="slide-9">
+      <div class="slide-content">
+        <div>
+          <div class="slide-eyebrow">Customer Journey Map • Задача №7</div>
+          <h2 class="slide-title">CJM 7: Модерация, безопасность и разрешение коллизий</h2>
+          <p class="slide-subtitle">
+            Как система отсекает мошенничество, дубли и защищает девелопера от переплат и споров.
+          </p>
+        </div>
+
+        <div class="cjm-container">
+          <div class="cjm-header-meta">
+            <div class="cjm-role-pill">
+              <span style="color:var(--mf-primary);">👤 Актёр:</span> Администратор платформы (SUPER_ADMIN) & Служба безопасности
+            </div>
+            <div style="font-size:0.82rem;color:var(--mf-text-secondary);">
+              <b>Результат:</b> 100% юридическая чистота базы, исключение двойных выплат.
+            </div>
+            <span class="badge badge-prod">Продакшн</span>
+          </div>
+
+          <div class="cjm-steps-grid">
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">01</span>
+                <span class="cjm-actor">Новый участник</span>
+              </div>
+              <div class="cjm-action-title">Заявка на регистрацию</div>
+              <div class="cjm-action-detail">
+                Пользователь проходит Fast OTP верификацию по телефону и указывает налоговый статус (ИНН, самозанятый, ИП).
+              </div>
+              <div class="cjm-tech-pill">⚡ Статус isApproved: false</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">02</span>
+                <span class="cjm-actor">Администратор</span>
+              </div>
+              <div class="cjm-action-title">Проверка модератором</div>
+              <div class="cjm-action-detail">
+                В панели `PendingApproval` администратор сверяет данные в ЕГРЮЛ/ФНС и одобряет аккредитацию либо запрашивает документы.
+              </div>
+              <div class="cjm-tech-pill">⚡ approvedBy / approvedAt аудит</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">03</span>
+                <span class="cjm-actor">Антифрод-фильтр</span>
+              </div>
+              <div class="cjm-action-title">Защита от самофиксаций</div>
+              <div class="cjm-action-detail">
+                Блокировка попыток риелторов фиксировать собственные телефоны, телефоны родственников или номера из спам-баз.
+              </div>
+              <div class="cjm-tech-pill">⚡ Rate-limit + Phone Fingerprint</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">04</span>
+                <span class="cjm-actor">Арбитраж платформы</span>
+              </div>
+              <div class="cjm-action-title">Разрешение коллизий</div>
+              <div class="cjm-action-detail">
+                При пересечении двух заявок спор решается строго по миллисекундному штампу времени первой валидной фиксации.
+              </div>
+              <div class="cjm-tech-pill">⚡ Неизменяемый Postgres Timestamp</div>
+            </div>
+          </div>
+
+          <div class="card" style="background:var(--mf-card-bg-subtle);padding:14px 18px;">
+            <div style="font-size:0.85rem;color:var(--mf-text-secondary);display:flex;align-items:center;gap:12px;">
+              <span style="color:var(--mf-success);font-weight:700;">🛡️ Безопасность девелопера:</span>
+              Застройщик защищён от ситуации, когда два разных агентства требуют комиссию за одного покупателя. Платформа предоставляет юридически обязывающий аудит-лог каждого действия.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 11: CJM 8 - CATALOG MANAGEMENT -->
+    <section class="slide" id="slide-10">
+      <div class="slide-content">
+        <div>
+          <div class="slide-eyebrow">Customer Journey Map • Задача №8</div>
+          <h2 class="slide-title">CJM 8: Управление объектами и витриной застройщика</h2>
+          <p class="slide-subtitle">
+            Как девелопер «АТС Малиновка» актуализирует генпланы посёлков, участки и проекты домов для всей партнёрской сети.
+          </p>
+        </div>
+
+        <div class="cjm-container">
+          <div class="cjm-header-meta">
+            <div class="cjm-role-pill">
+              <span style="color:var(--mf-primary);">👤 Актёр:</span> Руководитель застройщика (DEVELOPER_HEAD) & Подрядчики (BuildingContractor)
+            </div>
+            <div style="font-size:0.82rem;color:var(--mf-text-secondary);">
+              <b>Результат:</b> Актуальный единый реестр свободных лотов без звонков в отдел продаж.
+            </div>
+            <span class="badge badge-prod">Продакшн</span>
+          </div>
+
+          <div class="cjm-steps-grid">
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">01</span>
+                <span class="cjm-actor">Девелопер</span>
+              </div>
+              <div class="cjm-action-title">Создание посёлка</div>
+              <div class="cjm-action-detail">
+                Загрузка КП: локация, коммуникации (газ, электричество, вода), инфраструктура, регламент застройки.
+              </div>
+              <div class="cjm-tech-pill">⚡ Модель Settlement (Sawoda, Honkaniemi...)</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">02</span>
+                <span class="cjm-actor">Девелопер</span>
+              </div>
+              <div class="cjm-action-title">Разметка лотов и кадастров</div>
+              <div class="cjm-action-detail">
+                Внесение кадастровых номеров Росреестра, площадей в сотках, статуса (Свободен / Бронь / Продан) и стоимости.
+              </div>
+              <div class="cjm-tech-pill">⚡ Модель MarketLot + кадастровый индекс</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">03</span>
+                <span class="cjm-actor">Подрядчики</span>
+              </div>
+              <div class="cjm-action-title">Проекты домов и шоурумы</div>
+              <div class="cjm-action-detail">
+                Аккредитованные строительные компании прикрепляют типовые проекты домов от 120 до 350 м² и адреса шоурумов.
+              </div>
+              <div class="cjm-tech-pill">⚡ HouseProject + Showroom</div>
+            </div>
+
+            <div class="cjm-step-card">
+              <div class="cjm-step-top">
+                <span class="cjm-step-num">04</span>
+                <span class="cjm-actor">Платформа</span>
+              </div>
+              <div class="cjm-action-title">Мгновенная публикация</div>
+              <div class="cjm-action-detail">
+                Лоты моментально появляются на интерактивной карте посёлков у сотен брокеров с расчетом агентского вознаграждения.
+              </div>
+              <div class="cjm-tech-pill">⚡ Авто-синхронизация витрины</div>
+            </div>
+          </div>
+
+          <div class="card" style="background:var(--mf-card-bg-subtle);padding:14px 18px;">
+            <div style="font-size:0.85rem;color:var(--mf-text-secondary);display:flex;align-items:center;gap:12px;">
+              <span style="color:var(--mf-warning);font-weight:700;">📍 Скорость принятия решений:</span>
+              Брокеры продают не абстрактную землю, а конкретные лоты с юридическими кадастрами Росреестра и готовыми сметами подряда. Цикл закрытия сделки сокращается в 3 раза.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 12: STATUS TRAFFIC LIGHT -->
+    <section class="slide" id="slide-11">
+      <div class="slide-content">
+        <div>
+          <div class="slide-eyebrow">Аудит зрелости платформы и роадмап</div>
+          <h2 class="slide-title">Текущий функционал vs Roadmap vs Осознанный отказ</h2>
+          <p class="slide-subtitle">
+            Реалистичный статус разработки: чёткое разделение того, что уже работает на malinafix.ru, и того, куда инвестируются ресурсы дальше.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <!-- Col 1: Production -->
+          <div class="card" style="border-top:3px solid var(--mf-success);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div class="card-title" style="color:var(--mf-success);">🟢 Продакшн (malinafix.ru)</div>
+              <span class="badge badge-prod">Работает</span>
+            </div>
+            <div class="card-desc">
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:0.83rem;">
+                <li>✓ <b>Fast OTP авторизация:</b> СМС и FlashCall вход за 5 секунд.</li>
+                <li>✓ <b>Ролевой доступ (RBAC):</b> 8 типов аккаунтов и модерация.</li>
+                <li>✓ <b>Движок анти-перехвата:</b> дедупликация и бронь на 30–180 дней.</li>
+                <li>✓ <b>amoCRM Outbox:</b> двусторонний синк сделок и этапов воронки.</li>
+                <li>✓ <b>Интерактивная карта:</b> посёлки Sawoda, Honkaniemi, HYTTE.</li>
+                <li>✓ <b>Чат сделки:</b> обмен файлами и сметами с хранилищем в S3.</li>
+                <li>✓ <b>«Матрёшка»:</b> реферальный сплит 60/20/20 и генератор QR-карт.</li>
+                <li>✓ <b>Кабинет АН:</b> инвайты сотрудников и командная воронка.</li>
+                <li>✓ <b>Редактор каталога:</b> разметка участков и кадастровых номеров.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Col 2: Next Sprints -->
+          <div class="card" style="border-top:3px solid var(--mf-warning);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div class="card-title" style="color:var(--mf-warning);">🟡 В плане разработки</div>
+              <span class="badge badge-plan">Roadmap</span>
+            </div>
+            <div class="card-desc">
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:0.83rem;">
+                <li>⏳ <b>Номинальные счета (ст. 860.1 ГК РФ):</b> автоматический сплит выплат самозанятым и ИП агентам без налога на оборот платформы.</li>
+                <li>⏳ <b>Электронная подпись (ПЭП):</b> подписание закрывающих актов по СМС в 1 клик с формированием юридических PDF.</li>
+                <li>⏳ <b>Интеграция с Битрикс24:</b> коннектор для девелоперов и подрядчиков с корпоративным Битрикс24.</li>
+                <li>⏳ <b>White-Label витрины:</b> ссылки на подборки участков под брендом партнёра.</li>
+                <li>⏳ <b>Telegram Web App (TWA):</b> мобильное рабочее место брокера внутри Telegram с пуш-уведомлениями.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Col 3: Anti-scope -->
+          <div class="card" style="border-top:3px solid var(--mf-danger);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div class="card-title" style="color:var(--mf-danger);">⛔ Осознанный отказ</div>
+              <span class="badge badge-anti">Анти-скоуп</span>
+            </div>
+            <div class="card-desc">
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:0.83rem;">
+                <li>✕ <b>Криптовалюты и смарт-контракты:</b> расчёты ведутся строго в правовом контуре РФ через лицензированные банки и ФНС.</li>
+                <li>✕ <b>ИИ-боты «вместо риелтора»:</b> с чеком 15–25 млн ₽ клиенты покупают только через живой выезд в посёлок и доверие человеку.</li>
+                <li>✕ <b>VR-метавселенные:</b> брокерам нужны реальные кадастровые номера Росреестра, генплан и бронь, а не медленная 3D-графика.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 13: STRATEGIC IMPACT -->
+    <section class="slide" id="slide-12">
+      <div class="slide-content">
+        <div>
+          <div class="slide-eyebrow">Экономический эффект</div>
+          <h2 class="slide-title">Стратегический эффект для девелопера «АТС Малиновка»</h2>
+          <p class="slide-subtitle">
+            Платформа развернута на сервере https://malinafix.ru и готова к подключению партнёрских сетей.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title">Рост продаж на 35–50%</div>
+            <div class="card-desc">
+              Привлечение сотен внешних брокеров Санкт-Петербурга и ЛО без расширения собственного фонда оплаты труда отдела продаж.
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">0 конфликтов за лиды</div>
+            <div class="card-desc">
+              Исключение спорных ситуаций и двойных комиссий благодаря штампу времени фиксации и сверке с amoCRM девелопера.
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Канал стройматериалов</div>
+            <div class="card-desc">
+              Привлечение сотен прорабов и строительных баз («Материк» и др.) через «Матрёшку» с нулевыми вложениями в рекламу.
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="background:var(--mf-card-bg-subtle);text-align:center;padding:28px;display:flex;flex-direction:column;align-items:center;gap:14px;">
+          <h3 style="font-size:1.35rem;color:var(--mf-text-primary);font-weight:800;">Готовы перейти к практической работе?</h3>
+          <p style="color:var(--mf-text-secondary);max-width:680px;font-size:0.92rem;line-height:1.5;">
+            Вы можете открыть интерфейс на malinafix.ru для проверки работы в реальном времени либо распечатать официальный отчёт в формате А4.
+          </p>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;">
+            <a href="https://malinafix.ru" target="_blank" class="btn-header accent" style="padding:12px 26px;font-size:0.95rem;">
+              Перейти на malinafix.ru ↗
+            </a>
+            <a href="print.html" target="_blank" class="btn-header" style="padding:12px 22px;font-size:0.95rem;">
+              🖨️ Открыть отчёт для печати А4 (ч/б)
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- BOTTOM CONTROLS -->
+  <footer class="bottom-bar">
+    <div class="slide-indicator">
+      Раздел <span id="currentSlideNum">01</span> / 13
+    </div>
+
+    <div class="dots-nav" id="dotsNav">
+      <!-- 13 dots injected by JS -->
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn-nav" id="btnPrev" onclick="prevSlide()" title="Предыдущий слайд (←)">‹</button>
+      <button class="btn-nav" id="btnNext" onclick="nextSlide()" title="Следующий слайд (→ / Space)">›</button>
+    </div>
+  </footer>
+
+  <div class="progress-bar-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- DRAWER OVERLAY & MENU -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
+  <aside class="drawer" id="drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">Содержание презентации (13 разделов)</div>
+      <button class="drawer-close" onclick="toggleDrawer()">✕</button>
+    </div>
+    <ul class="drawer-list" id="drawerList">
+      <!-- Injected by JS -->
+    </ul>
+    <div style="margin-top:auto;padding-top:16px;border-top:1px solid var(--mf-border);display:flex;flex-direction:column;gap:10px;">
+      <a href="print.html" target="_blank" class="btn-header" style="justify-content:center;">
+        🖨️ Версия для печати А4 (ч/б)
+      </a>
+      <a href="https://malinafix.ru" target="_blank" class="btn-header accent" style="justify-content:center;">
+        Перейти на malinafix.ru ↗
+      </a>
+    </div>
+  </aside>
+
+  <!-- JAVASCRIPT CONTROLLER -->
+  <script>
+    const totalSlides = 13;
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dotsNav = document.getElementById('dotsNav');
+    const drawerList = document.getElementById('drawerList');
+    const currentSlideNum = document.getElementById('currentSlideNum');
+    const progressBar = document.getElementById('progressBar');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+
+    const slideTitles = [
+      "Титул: Экосистема Malinafix",
+      "Рыночный контекст и решение",
+      "Ролевая модель RBAC (4 контура)",
+      "CJM 1: Фиксация и защита покупателя",
+      "CJM 2: Каталог посёлков и лотов",
+      "CJM 3: Обработка в amoCRM и Outbox",
+      "CJM 4: Управление агентством (АН)",
+      "CJM 5: Сеть стройматериалов («Матрёшка»)",
+      "CJM 6: Финансовый клиринг и калькулятор",
+      "CJM 7: Модерация, безопасность и арбитраж",
+      "CJM 8: Управление объектами и витриной",
+      "Статус: Продакшн vs План vs Анти-скоуп",
+      "Стратегический эффект для девелопера"
+    ];
+
+    // Theme Toggle Controller
+    let isLightTheme = localStorage.getItem('mf_theme') === 'light';
+    function applyTheme() {
+      document.body.classList.toggle('light-theme', isLightTheme);
+      const icon = document.getElementById('themeIcon');
+      const label = document.getElementById('themeLabel');
+      if (icon) icon.textContent = isLightTheme ? '🌙' : '☀️';
+      if (label) label.textContent = isLightTheme ? 'Тёмная тема' : 'Светлая тема';
+      localStorage.setItem('mf_theme', isLightTheme ? 'light' : 'dark');
+      if (typeof resizeCanvas === 'function') resizeCanvas();
+    }
+    function toggleTheme() {
+      isLightTheme = !isLightTheme;
+      applyTheme();
+    }
+
+    // Build dots and drawer
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goToSlide(i);
+      dotsNav.appendChild(dot);
+
+      const item = document.createElement('li');
+      item.className = 'drawer-item' + (i === 0 ? ' active' : '');
+      item.innerHTML = `<span class="drawer-num">${String(i + 1).padStart(2, '0')}</span><span>${slideTitles[i]}</span>`;
+      item.onclick = () => {
+        goToSlide(i);
+        toggleDrawer();
+      };
+      drawerList.appendChild(item);
+    }
+
+    function goToSlide(index) {
+      if (index < 0 || index >= totalSlides) return;
+      slides[currentSlide].classList.remove('active');
+      currentSlide = index;
+      slides[currentSlide].classList.add('active');
+
+      currentSlideNum.textContent = String(currentSlide + 1).padStart(2, '0');
+      progressBar.style.width = ((currentSlide + 1) / totalSlides * 100) + '%';
+      btnPrev.disabled = (currentSlide === 0);
+      btnNext.disabled = (currentSlide === totalSlides - 1);
+
+      document.querySelectorAll('.dot').forEach((d, i) => {
+        d.classList.toggle('active', i === currentSlide);
+      });
+      document.querySelectorAll('.drawer-item').forEach((item, i) => {
+        item.classList.toggle('active', i === currentSlide);
+      });
+
+      if (currentSlide === 0) startCanvas();
+      else stopCanvas();
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) goToSlide(currentSlide - 1);
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      } else if (e.key === 'Escape') {
+        const drawer = document.getElementById('drawer');
+        if (drawer.classList.contains('open')) toggleDrawer();
+      }
+    });
+
+    // Touch swipe
+    let touchStartX = 0;
+    let touchStartY = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    document.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+      if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY)) {
+        if (diffX < 0) nextSlide();
+        else prevSlide();
+      }
+    }, { passive: true });
+
+    function toggleDrawer() {
+      document.getElementById('drawer').classList.toggle('open');
+      document.getElementById('drawerOverlay').classList.toggle('open');
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    function switchRoleTab(tabIndex, btn) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.tab-pane').forEach((p, idx) => {
+        p.classList.toggle('active', idx === tabIndex);
+      });
+    }
+
+    // Calculator logic
+    let calcMode = 'std';
+    function setCalcMode(mode) {
+      calcMode = mode;
+      document.getElementById('btnModeStd').classList.toggle('active', mode === 'std');
+      document.getElementById('btnModeMat').classList.toggle('active', mode === 'mat');
+      document.getElementById('resStandardBlock').style.display = (mode === 'std') ? 'block' : 'none';
+      document.getElementById('resMatryoshkaBlock').style.display = (mode === 'mat') ? 'block' : 'none';
+      updateCalculator();
+    }
+
+    function formatRubles(val) {
+      return Math.round(val).toLocaleString('ru-RU') + ' ₽';
+    }
+
+    function updateCalculator() {
+      const price = parseFloat(document.getElementById('calcPrice').value);
+      const rate = parseFloat(document.getElementById('calcRate').value);
+
+      document.getElementById('calcPriceLabel').textContent = formatRubles(price);
+      document.getElementById('calcRateLabel').textContent = rate.toFixed(1) + '%';
+
+      const gross = price * (rate / 100);
+      document.getElementById('resGross').textContent = formatRubles(gross);
+
+      const platformFee = gross * 0.20;
+      const partnerPool = gross * 0.80;
+
+      if (calcMode === 'std') {
+        const agentFee = partnerPool;
+        const refBonus = agentFee * 0.05;
+        document.getElementById('resAgent').textContent = formatRubles(agentFee);
+        document.getElementById('resPlatform').textContent = formatRubles(platformFee);
+        document.getElementById('resReferral').textContent = formatRubles(refBonus);
+        document.getElementById('segAgent').style.width = '80%';
+        document.getElementById('segPlatform').style.width = '20%';
+        document.getElementById('segAgentLabel').textContent = `Брокер: 80% (${formatRubles(agentFee)})`;
+      } else {
+        const foremanFee = partnerPool * 0.60;
+        const employeeFee = partnerPool * 0.20;
+        const companyFee = partnerPool * 0.20;
+
+        document.getElementById('resForeman').textContent = formatRubles(foremanFee);
+        document.getElementById('resEmployee').textContent = formatRubles(employeeFee);
+        document.getElementById('resCompany').textContent = formatRubles(companyFee);
+        document.getElementById('resPlatformMat').textContent = formatRubles(platformFee);
+        document.getElementById('segAgent').style.width = '80%';
+        document.getElementById('segPlatform').style.width = '20%';
+        document.getElementById('segAgentLabel').textContent = `Матрёшка (60/20/20): 80% (${formatRubles(partnerPool)})`;
+      }
+    }
+
+    // Hero Canvas
+    let canvasAnimationId = null;
+    const canvas = document.getElementById('heroCanvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+
+    const nodes = [
+      { label: "Брокер / АН", color: "#34D399", x: 0.18, y: 0.35, vx: 0.2, vy: 0.25, size: 8 },
+      { label: "АТС Малиновка", color: "#38BDF8", x: 0.82, y: 0.35, vx: -0.25, vy: 0.2, size: 8 },
+      { label: "Malinafix", color: "#E11D48", x: 0.5, y: 0.55, vx: 0.1, vy: -0.1, size: 12 },
+      { label: "Покупатель", color: "#FBBF24", x: 0.28, y: 0.78, vx: -0.2, vy: -0.2, size: 7 },
+      { label: "Сеть стройматериалов", color: "#A855F7", x: 0.72, y: 0.78, vx: 0.2, vy: 0.15, size: 7 }
+    ];
+
+    const particles = [];
+    for (let i = 0; i < 28; i++) {
+      particles.push({
+        x: Math.random(),
+        y: Math.random(),
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        size: Math.random() * 2 + 1
+      });
+    }
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function renderCanvas() {
+      ctx.clearRect(0, 0, width, height);
+
+      const isLight = document.body.classList.contains('light-theme');
+      ctx.fillStyle = isLight ? 'rgba(15, 23, 42, 0.12)' : 'rgba(255, 255, 255, 0.2)';
+      particles.forEach(p => {
+        p.x += p.vx * 0.002;
+        p.y += p.vy * 0.002;
+        if (p.x < 0 || p.x > 1) p.vx *= -1;
+        if (p.y < 0 || p.y > 1) p.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x * width, p.y * height, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      const core = nodes[2];
+      nodes.forEach((n, idx) => {
+        if (idx !== 2) {
+          ctx.beginPath();
+          ctx.moveTo(core.x * width, core.y * height);
+          ctx.lineTo(n.x * width, n.y * height);
+          ctx.strokeStyle = 'rgba(225, 29, 72, 0.25)';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+      });
+
+      ctx.beginPath();
+      ctx.moveTo(nodes[0].x * width, nodes[0].y * height);
+      ctx.lineTo(nodes[3].x * width, nodes[3].y * height);
+      ctx.moveTo(nodes[1].x * width, nodes[1].y * height);
+      ctx.lineTo(nodes[4].x * width, nodes[4].y * height);
+      ctx.strokeStyle = isLight ? 'rgba(15, 23, 42, 0.06)' : 'rgba(255, 255, 255, 0.08)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      nodes.forEach(n => {
+        n.x += n.vx * 0.001;
+        n.y += n.vy * 0.001;
+        if (n.x < 0.1 || n.x > 0.9) n.vx *= -1;
+        if (n.y < 0.2 || n.y > 0.85) n.vy *= -1;
+
+        const px = n.x * width;
+        const py = n.y * height;
+
+        const grad = ctx.createRadialGradient(px, py, 0, px, py, n.size * 2.5);
+        grad.addColorStop(0, n.color);
+        grad.addColorStop(1, 'transparent');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(px, py, n.size * 2.5, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = n.color;
+        ctx.beginPath();
+        ctx.arc(px, py, n.size, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = isLight ? '#0F172A' : '#F8FAFC';
+        ctx.font = '600 12px "Plus Jakarta Sans", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(n.label, px, py + n.size + 16);
+      });
+
+      canvasAnimationId = requestAnimationFrame(renderCanvas);
+    }
+
+    function startCanvas() {
+      if (!canvasAnimationId) renderCanvas();
+    }
+
+    function stopCanvas() {
+      if (canvasAnimationId) {
+        cancelAnimationFrame(canvasAnimationId);
+        canvasAnimationId = null;
+      }
+    }
+
+    applyTheme();
+    startCanvas();
+    updateCalculator();
+  </script>
+</body>
+</html>

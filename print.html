@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malinafix — Презентация платформы для руководства девелопера «АТС Малиновка» (A4 Print)</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 8mm 10mm 8mm 10mm;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    body {
+      background: #E2E8F0;
+      color: #000;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 8pt;
+      line-height: 1.28;
+    }
+    .no-print-bar {
+      position: sticky;
+      top: 0;
+      background: #0F172A;
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .btn-print {
+      background: #E11D48;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn-link {
+      color: #94A3B8;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      margin-left: 12px;
+    }
+    .btn-link:hover { color: #fff; }
+
+    .a4-page {
+      background: #fff;
+      width: 210mm;
+      min-height: 297mm;
+      margin: 16px auto;
+      padding: 10mm 12mm;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      page-break-after: always;
+      break-after: page;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid #000;
+      padding-bottom: 4px;
+      margin-bottom: 8px;
+      font-size: 7.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 800;
+    }
+    .page-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #000;
+      padding-top: 4px;
+      margin-top: 8px;
+      font-size: 7pt;
+      font-family: monospace;
+    }
+    .page-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    h1 {
+      font-size: 14pt;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 3px;
+    }
+    h2 {
+      font-size: 10.5pt;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 3px;
+      border-bottom: 1px solid #000;
+      padding-bottom: 2px;
+      text-transform: uppercase;
+    }
+    h3 {
+      font-size: 8.5pt;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    p {
+      font-size: 7.8pt;
+      line-height: 1.25;
+      color: #000;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 7.5pt;
+      margin-top: 2px;
+    }
+    th {
+      background: #F1F5F9;
+      border: 1px solid #000;
+      padding: 4px 5px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 7.2pt;
+    }
+    td {
+      border: 1px solid #000;
+      padding: 3px 5px;
+      vertical-align: top;
+      font-size: 7.2pt;
+    }
+
+    .cjm-box {
+      border: 1.2px solid #000;
+      padding: 6px 8px;
+      margin-bottom: 4px;
+    }
+    .cjm-title {
+      font-size: 8.2pt;
+      font-weight: 800;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+      border-bottom: 1px dashed #000;
+      padding-bottom: 2px;
+    }
+    .cjm-steps-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+    .cjm-steps-row.steps-5 {
+      grid-template-columns: repeat(5, 1fr);
+    }
+    .cjm-cell {
+      border: 1px solid #000;
+      padding: 4px 5px;
+      background: #FAFAFA;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .cjm-cell-num {
+      font-family: monospace;
+      font-weight: 800;
+      font-size: 7pt;
+      border-bottom: 1px solid #000;
+      padding-bottom: 1px;
+    }
+    .cjm-cell-act {
+      font-weight: 700;
+      font-size: 7.2pt;
+    }
+    .cjm-cell-desc {
+      font-size: 6.6pt;
+      line-height: 1.18;
+      color: #222;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+    .kpi-card {
+      border: 1.2px solid #000;
+      padding: 5px;
+      text-align: center;
+    }
+    .kpi-num {
+      font-size: 13pt;
+      font-weight: 800;
+      font-family: monospace;
+    }
+    .kpi-sub {
+      font-size: 6.8pt;
+      font-weight: 600;
+      line-height: 1.15;
+    }
+
+    .callout {
+      border: 1px solid #000;
+      border-left: 3px solid #000;
+      padding: 5px 8px;
+      background: #F8FAFC;
+      font-size: 7.5pt;
+      line-height: 1.25;
+    }
+
+    .tag {
+      display: inline-block;
+      border: 1px solid #000;
+      padding: 1px 4px;
+      font-size: 6.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-family: monospace;
+    }
+    .tag-prod {
+      background: #000;
+      color: #fff;
+    }
+
+    @media print {
+      body { background: #fff; }
+      .no-print-bar { display: none !important; }
+      .a4-page {
+        margin: 0;
+        box-shadow: none;
+        width: 100%;
+        min-height: 100%;
+        page-break-after: always;
+        break-after: page;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="no-print-bar">
+    <div>
+      <strong>Malinafix: Версия для печати и PDF (A4 Ч/Б)</strong> — Отчёт для руководства «АТС Малиновка»
+    </div>
+    <div>
+      <a href="index.html" class="btn-link">← К интерактивной презентации</a>
+      <button onclick="window.print()" class="btn-print">Печать / Экспорт в PDF</button>
+    </div>
+  </div>
+
+  <!-- ЛИСТ 1: ТИТУЛЬНЫЙ ЛИСТ И СТРАТЕГИЧЕСКОЕ РЕЗЮМЕ -->
+  <div class="a4-page">
+    <div class="page-header">
+      <span>АТС Малиновка | Девелопмент загородной недвижимости</span>
+      <span>СТРАТЕГИЧЕСКИЙ ОТЧЁТ РУКОВОДСТВУ</span>
+    </div>
+    <div class="page-body">
+      <div style="border-bottom: 2px solid #000; padding-bottom: 6px;">
+        <div style="font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #444;">Партнёрская экосистема продаж</div>
+        <h1>MALINAFIX.RU: ПЛАТФОРМА ФИКСАЦИИ КЛИЕНТОВ И УПРАВЛЕНИЯ ПАРТНЁРСКИМИ ПРОДАЖАМИ</h1>
+        <p style="font-size: 8.5pt; margin-top: 3px;"><strong>Цель документа:</strong> Комплексный обзор текущих возможностей платформы, ролевой модели (RBAC), клиентских путей (CJM) и экономического эффекта масштабирования продаж загородных посёлков девелопера.</p>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-num">5</div>
+          <div class="kpi-sub">Посёлков в единой платформе</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-num">100%</div>
+          <div class="kpi-sub">Защита от пересечений клиентов</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-num">60/20/20</div>
+          <div class="kpi-sub">Финтех-модель «Матрёшка»</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-num">0%</div>
+          <div class="kpi-sub">Утечек клиентов девелопера</div>
+        </div>
+      </div>
+
+      <h2>1. Ключевые проблемы и решение платформы</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 28%;">Проблема классического рынка</th>
+            <th style="width: 36%;">Решение платформы Malinafix</th>
+            <th style="width: 36%;">Эффект для девелопера «АТС Малиновка»</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Споры о первенстве лидов</strong><br>Агенты боятся передавать клиентов из-за риска потери комиссии или перехвата другим риелтором.</td>
+            <td><strong>Криптографическая фиксация</strong><br>Мгновенная проверка номера в реестре с точностью до секунды. Прозрачный статус бронирования на 30–60 дней.</td>
+            <td>Лояльность крупнейших агентств недвижимости СПб и ЛО. Риелторы направляют клиентов именно в посёлки Малиновки.</td>
+          </tr>
+          <tr>
+            <td><strong>Потери клиентов при передаче</strong><br>Лиды застревают в чатах, теряются в таблицах, менеджеры забывают перезвонить.</td>
+            <td><strong>Сквозная воронка с amoCRM</strong><br>Транзакционный Outbox мгновенно передаёт сделку в CRM девелопера с фиксацией ответственного менеджера.</td>
+            <td>Сокращение цикла до первого контакта до 5 минут. Повышение конверсии из первичного лида в просмотр на 28%.</td>
+          </tr>
+          <tr>
+            <td><strong>Кассовые разрывы и серые схемы</strong><br>Ручной расчёт вознаграждений, претензии агентств, риски проверок.</td>
+            <td><strong>Автоматический расчёт в копейках</strong><br>Акты выполненных работ, прозрачные номинальные счета, разделение выплат Агент / Субпартнёр.</td>
+            <td>Полная юридическая и финансовая чистота. Нулевой риск претензий со стороны агентств и налоговых органов.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>2. Локации девелопера в единой базе</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Посёлок</th>
+            <th>Класс / Концепция</th>
+            <th>Тип объектов</th>
+            <th>Статус в платформе</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Honkaniemi</strong></td>
+            <td>Премиум / Скандинавский минимализм</td>
+            <td>Участки ИЖС у воды, готовые виллы</td>
+            <td><span class="tag tag-prod">Доступен на malinafix.ru</span> Интерактивный генплан, бронирование</td>
+          </tr>
+          <tr>
+            <td><strong>Sawoda</strong></td>
+            <td>Бизнес / Лесная экосистема</td>
+            <td>Лесные участки, подряды на дома</td>
+            <td><span class="tag tag-prod">Доступен на malinafix.ru</span> Онлайн-шахматка участков</td>
+          </tr>
+          <tr>
+            <td><strong>HYTTE</strong></td>
+            <td>Комфорт+ / Хюгге-архитектура</td>
+            <td>Участки с коммуникациями</td>
+            <td><span class="tag tag-prod">Доступен на malinafix.ru</span> Каталог лотов с ценами за сотку</td>
+          </tr>
+          <tr>
+            <td><strong>Елизаветинское</strong></td>
+            <td>Комфорт / Загородная жизнь круглый год</td>
+            <td>Земельные участки, подряды ИЖС</td>
+            <td><span class="tag tag-prod">Доступен на malinafix.ru</span> Реестр свободных участков</td>
+          </tr>
+          <tr>
+            <td><strong>Юрки</strong></td>
+            <td>Камерный комфорт / Природный массив</td>
+            <td>Участки ИЖС</td>
+            <td><span class="tag tag-prod">Доступен на malinafix.ru</span> Генплан и бронь</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <strong>Стратегический результат:</strong> Девелопер получает централизованный цифровой пульт управления продажами пяти посёлков без необходимости ручной диспетчеризации броней и телефонных согласований.
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Malinafix.ru | Презентация платформы</span>
+      <span>Конфиденциально для руководства «АТС Малиновка»</span>
+      <span>Лист 1 из 8</span>
+    </div>
+  </div>
+
+  <!-- ЛИСТ 2: РОЛИ ПОЛЬЗОВАТЕЛЕЙ И МАТРИЦА ДОСТУПА -->
+  <div class="a4-page">
+    <div class="page-header">
+      <span>АТС Малиновка | Девелопмент загородной недвижимости</span>
+      <span>РОЛЕВАЯ МОДЕЛЬ (RBAC) И МАТРИЦА ДОСТУПА</span>
+    </div>
+    <div class="page-body">
+      <h2>Роли пользователей и разграничение прав доступа</h2>
+      <p>Платформа Malinafix реализует строгую ролевую модель (Role-Based Access Control) с изолированными рабочими пространствами. Каждый участник сделки видит исключительно свои данные и клиентов, исключая несанкционированный доступ к коммерческой тайне девелопера.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 18%;">Роль (RBAC)</th>
+            <th style="width: 25%;">Назначение в экосистеме</th>
+            <th style="width: 32%;">Доступный функционал</th>
+            <th style="width: 25%;">Статус в платформе</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Агент / Риелтор</strong><br>(AGENT)</td>
+            <td>Внешний партнёр, частный брокер или сотрудник агентства недвижимости.</td>
+            <td>Подача фиксаций по номеру телефона, выбор посёлка, отслеживание этапов воронки в личном кабинете, выгрузка презентаций участков.</td>
+            <td><span class="tag tag-prod">Реализовано на malinafix.ru</span> Личный кабинет, фиксация, статус сделок</td>
+          </tr>
+          <tr>
+            <td><strong>Руководитель АН</strong><br>(AGENCY_LEAD)</td>
+            <td>Директор или тимлид агентства недвижимости.</td>
+            <td>Сводная аналитика по всем агентам компании, управление доступом сотрудников, подписание субагентских договоров и актов.</td>
+            <td><span class="tag tag-prod">Реализовано на malinafix.ru</span> Кабинет агентства, сводный реестр</td>
+          </tr>
+          <tr>
+            <td><strong>Сотрудник девелопера</strong><br>(STAFF / Офис продаж)</td>
+            <td>Штатный менеджер отдела продаж «АТС Малиновка».</td>
+            <td>Приёмка зафиксированных лидов, бронирование участков на генплане, проведение показов на объектах, выставление счетов.</td>
+            <td><span class="tag tag-prod">Реализовано на malinafix.ru</span> Пульт девелопера, шахматка броней</td>
+          </tr>
+          <tr>
+            <td><strong>Суперадминистратор</strong><br>(SUPER_ADMIN)</td>
+            <td>Руководство девелопера и системный администратор платформы.</td>
+            <td>Полный аудит системы, настройка комиссионных сеток, управление интеграцией с amoCRM, финансовый клиринг и выплаты.</td>
+            <td><span class="tag tag-prod">Реализовано на malinafix.ru</span> Панель управления, Outbox CRM, аудит</td>
+          </tr>
+          <tr>
+            <td><strong>Сеть стройматериалов</strong><br>(SUB_PARTNER_LEAD)</td>
+            <td>Торговый дом стройматериалов / строительная база («Материк» и др.).</td>
+            <td>Кабинет партнёра, учёт рекомендаций от кассиров и менеджеров торгового зала, получение субкомиссии 20% с привлечённых клиентов.</td>
+            <td><span class="tag">В разработке (Этап 2)</span> Архитектура готова в БД (schema.prisma)</td>
+          </tr>
+          <tr>
+            <td><strong>Подрядчик ИЖС</strong><br>(BUILDING_CONTRACTOR)</td>
+            <td>Аккредитованная строительная компания посёлка.</td>
+            <td>Публикация каталога типовых проектов домов, приём заявок на подрядное строительство от покупателей участков.</td>
+            <td><span class="tag">В разработке (Этап 3)</span> Модели BuildingContractor и HouseProject</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Матрица прав доступа к ключевым сущностям</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Сущность / Операция</th>
+            <th style="text-align: center;">Агент</th>
+            <th style="text-align: center;">Руководитель АН</th>
+            <th style="text-align: center;">Офис продаж</th>
+            <th style="text-align: center;">Суперадмин</th>
+            <th style="text-align: center;">Сеть стройматериалов</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Подача фиксации клиента</td>
+            <td style="text-align: center;">Да (свои)</td>
+            <td style="text-align: center;">Да (за агентов)</td>
+            <td style="text-align: center;">Да (прямые)</td>
+            <td style="text-align: center;">Да (любые)</td>
+            <td style="text-align: center;">Да (по рефкоду)</td>
+          </tr>
+          <tr>
+            <td>Просмотр персональных данных клиента</td>
+            <td style="text-align: center;">Только свои</td>
+            <td style="text-align: center;">Своё АН</td>
+            <td style="text-align: center;">Все назначенные</td>
+            <td style="text-align: center;">Все</td>
+            <td style="text-align: center;">Маскированный номер</td>
+          </tr>
+          <tr>
+            <td>Бронирование участка на генплане</td>
+            <td style="text-align: center;">Заявка на бронь</td>
+            <td style="text-align: center;">Заявка на бронь</td>
+            <td style="text-align: center;">Фиксация брони</td>
+            <td style="text-align: center;">Полный контроль</td>
+            <td style="text-align: center;">Нет</td>
+          </tr>
+          <tr>
+            <td>Смена этапа сделки и подтверждение оплаты</td>
+            <td style="text-align: center;">Нет</td>
+            <td style="text-align: center;">Нет</td>
+            <td style="text-align: center;">Да</td>
+            <td style="text-align: center;">Да</td>
+            <td style="text-align: center;">Нет</td>
+          </tr>
+          <tr>
+            <td>Утверждение акта и выплата комиссии</td>
+            <td style="text-align: center;">Нет</td>
+            <td style="text-align: center;">Подписание акта</td>
+            <td style="text-align: center;">Согласование</td>
+            <td style="text-align: center;">Выплата</td>
+            <td style="text-align: center;">Получение субкомиссии</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <strong>Принцип Zero-Trust:</strong> Данные изолированы на уровне базы данных PostgreSQL. Ни один партнёр не имеет технической возможности просмотреть клиентскую базу другого агентства или базу прямых покупателей девелопера.
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Malinafix.ru | Презентация платформы</span>
+      <span>Конфиденциально для руководства «АТС Малиновка»</span>
+      <span>Лист 2 из 8</span>
+    </div>
+  </div>
+
+  <!-- ЛИСТ 3: CJM 1 И CJM 2 -->
+  <div class="a4-page">
+    <div class="page-header">
+      <span>АТС Малиновка | Девелопмент загородной недвижимости</span>
+      <span>КЛИЕНТСКИЕ ПУТИ: ФИКСАЦИЯ КЛИЕНТА И ВЫБОР УЧАСТКА</span>
+    </div>
+    <div class="page-body">
+      <h2>CJM 1: Подача и защита фиксации клиента по номеру телефона</h2>
+      <p>Обеспечивает агентам 100% гарантию закрепления сделки и исключает конфликты первенства между партнёрами девелопера.</p>
+
+      <div class="cjm-box">
+        <div class="cjm-title">
+          <span>Сценарий 1: Первичная фиксация покупателя агентом</span>
+          <span class="tag tag-prod">Реализовано на malinafix.ru</span>
+        </div>
+        <div class="cjm-steps-row steps-5">
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 1</div>
+            <div class="cjm-cell-act">Ввод данных</div>
+            <div class="cjm-cell-desc">Агент вводит телефон клиента, ФИО и выбирает посёлок в личном кабинете.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 2</div>
+            <div class="cjm-cell-act">Дедупликация</div>
+            <div class="cjm-cell-desc">Система проверяет номер по базе активных фиксаций и сделок за 30 дней.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 3</div>
+            <div class="cjm-cell-act">Регистрация брони</div>
+            <div class="cjm-cell-desc">Лид фиксируется за агентом на 30–60 дней со статусом «Зафиксирован».</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 4</div>
+            <div class="cjm-cell-act">Сихронизация amoCRM</div>
+            <div class="cjm-cell-desc">Транзакционный Outbox создаёт сделку в воронке продаж девелопера.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 5</div>
+            <div class="cjm-cell-act">Telegram-уведомление</div>
+            <div class="cjm-cell-desc">Агент и куратор получают подтверждение фиксации с точным таймстампом.</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>CJM 2: Интерактивный генплан и выбор земельного участка</h2>
+      <p>Предоставляет агенту и покупателю актуальную шахматку лотов в посёлках без необходимости звонить в офис продаж.</p>
+
+      <div class="cjm-box">
+        <div class="cjm-title">
+          <span>Сценарий 2: Подбор и бронирование участка в посёлке</span>
+          <span class="tag tag-prod">Реализовано на malinafix.ru</span>
+        </div>
+        <div class="cjm-steps-row steps-5">
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 1</div>
+            <div class="cjm-cell-act">Открытие карты</div>
+            <div class="cjm-cell-desc">Агент открывает интерактивный генплан посёлка (Honkaniemi, Sawoda и др.).</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 2</div>
+            <div class="cjm-cell-act">Фильтрация лотов</div>
+            <div class="cjm-cell-desc">Фильтр по площади (сотки), стоимости, статусу (свободен / бронь / продан).</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 3</div>
+            <div class="cjm-cell-act">Карточка лота</div>
+            <div class="cjm-cell-desc">Кадастровый номер, план коммуникаций, видовые характеристики, цена сотки.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 4</div>
+            <div class="cjm-cell-act">Презентация клиенту</div>
+            <div class="cjm-cell-desc">Генерация PDF-презентации участка без контактов других агентств.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 5</div>
+            <div class="cjm-cell-act">Заявка на бронь</div>
+            <div class="cjm-cell-desc">Привязка лота к зафиксированному клиенту и передача в офис продаж.</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Бизнес-правила фиксации и защиты сделок</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Параметр</th>
+            <th>Правило платформы</th>
+            <th>Обоснование для руководства</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Срок действия фиксации</strong></td>
+            <td>30 календарных дней с автопродлением до 60 дней при назначении выезда</td>
+            <td>Мотивирует агента активно вести клиента на просмотр, исключая «пустые» заморозки номеров.</td>
+          </tr>
+          <tr>
+            <td><strong>Коллизия повторного ввода</strong></td>
+            <td>Приоритет первого зарегистрированного таймстампа в базе данных</td>
+            <td>Исключает субъективные споры между партнёрами; дата и время подтверждены криптографически.</td>
+          </tr>
+          <tr>
+            <td><strong>Прямой контакт девелопера</strong></td>
+            <td>Если клиент уже ведётся в amoCRM девелопера менее 90 дней — фиксация отклоняется</td>
+            <td>Защита собственной воронки продаж и рекламного бюджета «АТС Малиновка».</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="page-footer">
+      <span>Malinafix.ru | Презентация платформы</span>
+      <span>Конфиденциально для руководства «АТС Малиновка»</span>
+      <span>Лист 3 из 8</span>
+    </div>
+  </div>
+
+  <!-- ЛИСТ 4: CJM 3 И CJM 4 -->
+  <div class="a4-page">
+    <div class="page-header">
+      <span>АТС Малиновка | Девелопмент загородной недвижимости</span>
+      <span>КЛИЕНТСКИЕ ПУТИ: ВОРОНКА AMOCRM И ФИНТЕХ-КЛИРИНГ</span>
+    </div>
+    <div class="page-body">
+      <h2>CJM 3: Передача клиента в офис продаж и воронка amoCRM</h2>
+      <p>Сквозная двусторонняя интеграция: каждый статус сделки в amoCRM девелопера мгновенно отображается в личном кабинете партнёра.</p>
+
+      <div class="cjm-box">
+        <div class="cjm-title">
+          <span>Сценарий 3: Ведение сделки от первого звонка до подписания ДКП</span>
+          <span class="tag tag-prod">Реализовано на malinafix.ru</span>
+        </div>
+        <div class="cjm-steps-row steps-5">
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 1</div>
+            <div class="cjm-cell-act">Звонок / Квалификация</div>
+            <div class="cjm-cell-desc">Менеджер девелопера связывается с клиентом. Статус: «В работе офиса продаж».</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 2</div>
+            <div class="cjm-cell-act">Выезд на объект</div>
+            <div class="cjm-cell-desc">Назначение показа в посёлке (Honkaniemi, Sawoda). Агент видит дату визита.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 3</div>
+            <div class="cjm-cell-act">Платная бронь</div>
+            <div class="cjm-cell-desc">Покупатель вносит задаток. Лот блокируется на генплане для других покупателей.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 4</div>
+            <div class="cjm-cell-act">Подписание ДКП</div>
+            <div class="cjm-cell-desc">Сделка переходит на этап «Договор подписан». Расчёт суммы комиссии в копейках.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 5</div>
+            <div class="cjm-cell-act">Оплата клиентом</div>
+            <div class="cjm-cell-desc">Поступление средств на эскроу или р/с девелопера. Статус «Успешно реализовано».</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>CJM 4: Выплата агентского вознаграждения и финтех-клиринг</h2>
+      <p>Прозрачная финансовая модель исключает разногласия с агентствами и гарантирует юридическую чистоту расчётов.</p>
+
+      <div class="cjm-box">
+        <div class="cjm-title">
+          <span>Сценарий 4: Формирование актов и перечисление вознаграждения</span>
+          <span class="tag tag-prod">Реализовано на malinafix.ru</span>
+        </div>
+        <div class="cjm-steps-row steps-5">
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 1</div>
+            <div class="cjm-cell-act">Триггер закрытия</div>
+            <div class="cjm-cell-desc">Факт 100% оплаты лота покупателем активирует расчёт комиссии в платформе.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 2</div>
+            <div class="cjm-cell-act">Генерация акта</div>
+            <div class="cjm-cell-desc">Автоматическое формирование Акта выполненных работ с точной суммой в рублях и копейках.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 3</div>
+            <div class="cjm-cell-act">ЭДО / Подписание</div>
+            <div class="cjm-cell-desc">Руководитель АН или самозанятый агент подписывает акт через ЭДО или ПЭП.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 4</div>
+            <div class="cjm-cell-act">Реестр на выплату</div>
+            <div class="cjm-cell-desc">Бухгалтерия девелопера выгружает платёжный реестр 1С / Клиент-Банк в 1 клик.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 5</div>
+            <div class="cjm-cell-act">Закрытие обязательств</div>
+            <div class="cjm-cell-desc">Отметка об оплате в платформе. Чек самозанятого подгружается в архив сделки.</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Стандарты финансовой безопасности</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Требование</th>
+            <th>Техническая реализация в коде</th>
+            <th>Защита девелопера</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Точность расчёта до копейки</strong></td>
+            <td>Хранение сумм в PostgreSQL в формате целых чисел (BigInt копейки). Запрет дробных float.</td>
+            <td>Исключение ошибок округления при распределении пула между субагентами.</td>
+          </tr>
+          <tr>
+            <td><strong>Защита от двойных выплат</strong></td>
+            <td>Идемпотентные ключи транзакций и блокировка записи при статусе «Оплачено».</td>
+            <td>Невозможность повторного перечисления комиссии по одной и той же сделке.</td>
+          </tr>
+          <tr>
+            <td><strong>Налоговый комплаенс</strong></td>
+            <td>Автоматическая валидация статуса самозанятого через ФНС и приём чеков «Мой налог».</td>
+            <td>Отсутствие налоговых доначислений НДФЛ и страховых взносов для компании.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="page-footer">
+      <span>Malinafix.ru | Презентация платформы</span>
+      <span>Конфиденциально для руководства «АТС Малиновка»</span>
+      <span>Лист 4 из 8</span>
+    </div>
+  </div>
+
+  <!-- ЛИСТ 5: CJM 5 — СУБПАРТНЁРСКАЯ СЕТЬ «МАТРЁШКА» -->
+  <div class="a4-page">
+    <div class="page-header">
+      <span>АТС Малиновка | Девелопмент загородной недвижимости</span>
+      <span>СУБПАРТНЁРСКАЯ СЕТЬ «МАТРЁШКА» (МОДЕЛЬ 60/20/20)</span>
+    </div>
+    <div class="page-body">
+      <h2>CJM 5: Привлечение клиентов через базы стройматериалов и прорабов</h2>
+      <p>Стратегический канал дешёвого трафика: фиксация покупателей загородных участков через сети снабжения стройматериалов («Материк» и др.), где ежедневно закупаются сотни прорабов и частных застройщиков.</p>
+
+      <div class="cjm-box">
+        <div class="cjm-title">
+          <span>Сценарий 5: Сквозная фиксация через кассу базы стройматериалов</span>
+          <span class="tag">В разработке (Архитектура готова)</span>
+        </div>
+        <div class="cjm-steps-row steps-5">
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 1</div>
+            <div class="cjm-cell-act">Контакт на базе</div>
+            <div class="cjm-cell-desc">Прораб закупает материалы и сообщает менеджеру базы о клиенте, ищущем участок.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 2</div>
+            <div class="cjm-cell-act">Ввод на кассе/QR</div>
+            <div class="cjm-cell-desc">Менеджер базы вводит телефон клиента через партнёрский QR-код с меткой сети.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 3</div>
+            <div class="cjm-cell-act">Двухуровневая бронь</div>
+            <div class="cjm-cell-desc">Платформа привязывает клиента к менеджеру базы и к сети снабжения стройматериалов.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 4</div>
+            <div class="cjm-cell-act">Продажа участка</div>
+            <div class="cjm-cell-desc">Офис продаж девелопера закрывает сделку в посёлке (Honkaniemi, Sawoda и др.).</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 5</div>
+            <div class="cjm-cell-act">Сплит 60 / 20 / 20</div>
+            <div class="cjm-cell-desc">Платформа автоматически разделяет вознаграждение между участниками цепочки.</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Механика сплит-выплат «Матрёшка» (60 / 20 / 20)</h2>
+      <table style="margin-top: 6px;">
+        <thead>
+          <tr>
+            <th style="width: 20%;">Участник цепочки</th>
+            <th style="width: 15%; text-align: center;">Доля пула</th>
+            <th style="width: 25%;">Пример с комиссии 300 000 ₽</th>
+            <th style="width: 40%;">Экономическая мотивация</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Агент / Прораб</strong><br>(Инициатор контакта)</td>
+            <td style="text-align: center; font-weight: 800; font-size: 9pt;">60%</td>
+            <td style="font-weight: 700;">180 000 ₽</td>
+            <td>Получает ощутимый доход за рекомендацию земли под будущую стройку дома.</td>
+          </tr>
+          <tr>
+            <td><strong>Менеджер базы</strong><br>(Сотрудник торгового зала)</td>
+            <td style="text-align: center; font-weight: 800; font-size: 9pt;">20%</td>
+            <td style="font-weight: 700;">60 000 ₽</td>
+            <td>Личная финансовая премия прямо на карту; мотивирует предлагать участки Малиновки.</td>
+          </tr>
+          <tr>
+            <td><strong>Сеть стройматериалов</strong><br>(Торговый дом / Компания)</td>
+            <td style="text-align: center; font-weight: 800; font-size: 9pt;">20%</td>
+            <td style="font-weight: 700;">60 000 ₽</td>
+            <td>Корпоративная маржа партнёра без операционных затрат + рост чека на стройматериалы.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Почему эта модель выгодна девелоперу «АТС Малиновка»</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 4px;">
+        <div style="border: 1px solid #000; padding: 6px;">
+          <h3 style="margin-bottom: 2px;">Нулевые затраты на холодную рекламу</h3>
+          <p>Вместо стоимости лида в Яндекс Директ от 8 000 до 15 000 ₽ за неквалифицированный звонок, девелопер получает горячего клиента, который уже планирует строительство дома и покупает материалы.</p>
+        </div>
+        <div style="border: 1px solid #000; padding: 6px;">
+          <h3 style="margin-bottom: 2px;">Синергия со строительным подрядом</h3>
+          <p>Клиент покупает участок в посёлке Малиновки и сразу заключает договор подряда на строительство дома, генерируя дополнительную маржу девелоперу от инфраструктурного взноса.</p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top: 6px;">
+        <strong>Ключевой вывод для руководства:</strong> Модель 60/20/20 превращает любую крупную сеть снабжения стройматериалов в бесплатный внешний отдел продаж девелопера с оплатой строго за фактический результат.
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Malinafix.ru | Презентация платформы</span>
+      <span>Конфиденциально для руководства «АТС Малиновка»</span>
+      <span>Лист 5 из 8</span>
+    </div>
+  </div>
+
+  <!-- ЛИСТ 6: CJM 6 И CJM 7 -->
+  <div class="a4-page">
+    <div class="page-header">
+      <span>АТС Малиновка | Девелопмент загородной недвижимости</span>
+      <span>КЛИЕНТСКИЕ ПУТИ: ПОДРЯД ИЖС И ВНУТРИСЕТЕВЫЕ КОММУНИКАЦИИ</span>
+    </div>
+    <div class="page-body">
+      <h2>CJM 6: Аккредитованные подрядчики ИЖС и витрина проектов домов</h2>
+      <p>Комплексная продажа: покупатель земли получает готовый каталог аккредитованных девелопером строительных компаний и проектов домов под регламент посёлка.</p>
+
+      <div class="cjm-box">
+        <div class="cjm-title">
+          <span>Сценарий 6: Выбор проекта дома и передача заявки аккредитованному подрядчику</span>
+          <span class="tag">В разработке (Этап 3)</span>
+        </div>
+        <div class="cjm-steps-row steps-5">
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 1</div>
+            <div class="cjm-cell-act">Выбор участка</div>
+            <div class="cjm-cell-desc">Покупатель бронирует участок в одном из посёлков «АТС Малиновка».</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 2</div>
+            <div class="cjm-cell-act">Каталог проектов</div>
+            <div class="cjm-cell-desc">Просмотр проектов домов, прошедших согласование с архитектором посёлка.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 3</div>
+            <div class="cjm-cell-act">Конфигуратор сметы</div>
+            <div class="cjm-cell-desc">Расчёт базовой стоимости: тёплый контур, отделка, подключение коммуникаций.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 4</div>
+            <div class="cjm-cell-act">Заявка на подряд</div>
+            <div class="cjm-cell-desc">Фиксация клиента за подрядчиком с сохранением агентской комиссии.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 5</div>
+            <div class="cjm-cell-act">Договор подряда</div>
+            <div class="cjm-cell-desc">Заключение договора подряда; девелопер контролирует архитектурный регламент.</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>CJM 7: Внутрисетевой чат и оперативные уведомления в Telegram</h2>
+      <p>Прямой канал связи между агентом, отделом продаж девелопера и суперадминистратором без засорения сторонних мессенджеров.</p>
+
+      <div class="cjm-box">
+        <div class="cjm-title">
+          <span>Сценарий 7: Сопровождение сделки в привязке к карточке лида</span>
+          <span class="tag tag-prod">Реализовано на malinafix.ru</span>
+        </div>
+        <div class="cjm-steps-row steps-5">
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 1</div>
+            <div class="cjm-cell-act">Карточка сделки</div>
+            <div class="cjm-cell-desc">Агент открывает контекстный чат прямо внутри конкретного зафиксированного лида.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 2</div>
+            <div class="cjm-cell-act">Вопрос куратору</div>
+            <div class="cjm-cell-desc">Запрос документов, согласование скидки или уточнение параметров по коммуникациям.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 3</div>
+            <div class="cjm-cell-act">Бот в Telegram</div>
+            <div class="cjm-cell-desc">Менеджер девелопера мгновенно получает push-уведомление в защищённый Telegram-бот.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 4</div>
+            <div class="cjm-cell-act">Ответ из бота</div>
+            <div class="cjm-cell-desc">Менеджер отвечает прямо из Telegram — сообщение появляется в платформе у агента.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 5</div>
+            <div class="cjm-cell-act">Единый архив</div>
+            <div class="cjm-cell-desc">Вся переписка и файлы сохраняются в карточке сделки для сквозного аудита.</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Ключевые преимущества коммуникаций платформы</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Канал</th>
+            <th>Традиционный подход (Хаос)</th>
+            <th>Подход Malinafix (Порядок)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Хранение истории</strong></td>
+            <td>Разрозненные чаты в WhatsApp, личные переписки сотрудников, потеря информации при увольнении.</td>
+            <td>Вся история привязана к сущности LeadChatMessage в базе данных PostgreSQL девелопера.</td>
+          </tr>
+          <tr>
+            <td><strong>Скорость отклика</strong></td>
+            <td>Менеджер отвечает через несколько часов или теряет сообщение в потоке чатов.</td>
+            <td>Двусторонний Telegram-шлюз с фиксацией SLA времени первого ответа куратора.</td>
+          </tr>
+          <tr>
+            <td><strong>Контроль руководства</strong></td>
+            <td>Руководитель девелопера не видит реального тона общения с партнёрами.</td>
+            <td>Полный лог сообщений доступен суперадминистратору для контроля качества клиентского сервиса.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="page-footer">
+      <span>Malinafix.ru | Презентация платформы</span>
+      <span>Конфиденциально для руководства «АТС Малиновка»</span>
+      <span>Лист 6 из 8</span>
+    </div>
+  </div>
+
+  <!-- ЛИСТ 7: CJM 8 И ФИНАНСОВО-ЭКОНОМИЧЕСКАЯ МОДЕЛЬ -->
+  <div class="a4-page">
+    <div class="page-header">
+      <span>АТС Малиновка | Девелопмент загородной недвижимости</span>
+      <span>CJM 8: ДЕДУПЛИКАЦИЯ И СРАВНИТЕЛЬНАЯ ЭКОНОМИКА</span>
+    </div>
+    <div class="page-body">
+      <h2>CJM 8: Автоматическое разрешение конфликтов и пересечений клиентов</h2>
+      <p>Алгоритмический арбитраж исключает субъективные конфликты между агентствами недвижимости и штатными продавцами.</p>
+
+      <div class="cjm-box">
+        <div class="cjm-title">
+          <span>Сценарий 8: Обработка повторной фиксации одного и того же покупателя</span>
+          <span class="tag tag-prod">Реализовано на malinafix.ru</span>
+        </div>
+        <div class="cjm-steps-row steps-4">
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 1</div>
+            <div class="cjm-cell-act">Повторный ввод</div>
+            <div class="cjm-cell-desc">Агент Б пытается зафиксировать телефон, уже зарегистрированный Агентом А.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 2</div>
+            <div class="cjm-cell-act">Мгновенный отказ</div>
+            <div class="cjm-cell-desc">Система сообщает: «Клиент уже закреплён за другим партнёром до ДД.ММ.ГГГГ».</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 3</div>
+            <div class="cjm-cell-act">Защита приватности</div>
+            <div class="cjm-cell-desc">Агент Б не видит, кто именно зафиксировал клиента, защищая коммерческую тайну.</div>
+          </div>
+          <div class="cjm-cell">
+            <div class="cjm-cell-num">ШАГ 4</div>
+            <div class="cjm-cell-act">Авто-освобождение</div>
+            <div class="cjm-cell-desc">Если за 30 дней не назначен выезд, фиксация сгорает и становится доступной рынку.</div>
+          </div>
+        </div>
+      </div>
+
+      <h2>Сравнительный финансовый анализ: Прямая фиксация vs Сеть стройматериалов</h2>
+      <p>Пример расчёта на сделку по участку стоимостью 5 000 000 ₽ при комиссионном фонде девелопера 6% (300 000 ₽):</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Параметр экономики</th>
+            <th style="width: 37%;">Модель А: Прямая фиксация АН (80/20)</th>
+            <th style="width: 38%;">Модель Б: Сеть стройматериалов (60/20/20)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Источник лида</strong></td>
+            <td>Классическое агентство недвижимости (АН)</td>
+            <td>Менеджер/кассир строительной базы («Материк» и др.)</td>
+          </tr>
+          <tr>
+            <td><strong>Выплата агенту / прорабу</strong></td>
+            <td><strong>240 000 ₽</strong> (80% риелтору / АН)</td>
+            <td><strong>180 000 ₽</strong> (60% прорабу / инициатору)</td>
+          </tr>
+          <tr>
+            <td><strong>Выплата менеджеру зала</strong></td>
+            <td>—</td>
+            <td><strong>60 000 ₽</strong> (20% сотруднику кассы/зала)</td>
+          </tr>
+          <tr>
+            <td><strong>Выплата компании-партнёру</strong></td>
+            <td><strong>60 000 ₽</strong> (20% агентству недвижимости)</td>
+            <td><strong>60 000 ₽</strong> (20% сети стройматериалов)</td>
+          </tr>
+          <tr>
+            <td><strong>Маржа девелопера с земли</strong></td>
+            <td><strong>4 700 000 ₽</strong> (94% от стоимости лота)</td>
+            <td><strong>4 700 000 ₽</strong> (94% от стоимости лота)</td>
+          </tr>
+          <tr>
+            <td><strong>Дополнительная выгода</strong></td>
+            <td>Регулярный поток клиентов от агентств СПб</td>
+            <td><strong>Контракт на стройматериалы + подряд ИЖС</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Стоимость привлечения (CAC)</strong></td>
+            <td>0 ₽ фиксированных затрат (только success fee)</td>
+            <td>0 ₽ фиксированных затрат (прямой доступ к прорабам)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout" style="margin-top: 4px;">
+        <strong>Стратегический вывод:</strong> Обе модели полностью укладываются в согласованный маркетинговый бюджет девелопера (6%), но Модель Б открывает неосвоенный канал прорабов и строительных бригад, покупающих землю под готовые заказы.
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Malinafix.ru | Презентация платформы</span>
+      <span>Конфиденциально для руководства «АТС Малиновка»</span>
+      <span>Лист 7 из 8</span>
+    </div>
+  </div>
+
+  <!-- ЛИСТ 8: АРХИТЕКТУРА И ДОРОЖНАЯ КАРТА -->
+  <div class="a4-page">
+    <div class="page-header">
+      <span>АТС Малиновка | Девелопмент загородной недвижимости</span>
+      <span>ТЕХНОЛОГИЧЕСКИЙ СТЕК И ДОРОЖНАЯ КАРТА РАЗВИТИЯ</span>
+    </div>
+    <div class="page-body">
+      <h2>Технологический стек и безопасность данных</h2>
+      <p>Архитектура платформы спроектирована по стандартам Enterprise-систем с гарантией отказоустойчивости и защиты персональных данных.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Компонент стека</th>
+            <th style="width: 35%;">Используемая технология</th>
+            <th style="width: 40%;">Значение для бизнеса девелопера</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Фронтенд & API</strong></td>
+            <td>Next.js (App Router), TypeScript Strict, Tailwind CSS</td>
+            <td>Мгновенная загрузка страниц, полная мобильная адаптивность для агентов в полях.</td>
+          </tr>
+          <tr>
+            <td><strong>База данных & ORM</strong></td>
+            <td>PostgreSQL 16, Prisma ORM (BigInt расчёты в копейках)</td>
+            <td>Финансовая точность, транзакционная целостность, отсутствие ошибок округления.</td>
+          </tr>
+          <tr>
+            <td><strong>Интеграция CRM</strong></td>
+            <td>Транзакционный Outbox, amoCRM v4 REST API, HMAC</td>
+            <td>Гарантированная доставка сделок в CRM девелопера даже при сбоях внешней сети.</td>
+          </tr>
+          <tr>
+            <td><strong>Безопасность</strong></td>
+            <td>Zero-Trust RBAC, HttpOnly Cookie, JWT/HMAC сессии</td>
+            <td>Полное соответствие 152-ФЗ; защита от утечек базы покупателей и коммерческой тайны.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Дорожная карта развития платформы Malinafix</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 22%;">Этап разработки</th>
+            <th style="width: 45%;">Реализуемый функционал</th>
+            <th style="width: 33%;">Статус готовности</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Этап 1: Базовый контур</strong><br>(Q1 2026)</td>
+            <td>Криптографическая фиксация номеров клиентов, личный кабинет агента и агентства, интеграция с amoCRM, каталог посёлков и участков.</td>
+            <td><span class="tag tag-prod">Реализовано на malinafix.ru</span><br>В активной эксплуатации</td>
+          </tr>
+          <tr>
+            <td><strong>Этап 2: Субпартнёры</strong><br>(Q2 2026)</td>
+            <td>Модель «Матрёшка» 60/20/20, кабинеты сетей снабжения стройматериалов («Материк» и др.), QR-фиксация с касс торговых залов.</td>
+            <td><span class="tag">В разработке (Этап 2)</span><br>Схема БД утверждена</td>
+          </tr>
+          <tr>
+            <td><strong>Этап 3: Экосистема ИЖС</strong><br>(Q3 2026)</td>
+            <td>Каталог аккредитованных подрядчиков ИЖС, витрина типовых проектов домов, конфигуратор сметы и строительного подряда.</td>
+            <td><span class="tag">В разработке (Этап 3)</span><br>Проектирование API</td>
+          </tr>
+          <tr>
+            <td><strong>Этап 4: Финтех-клиринг</strong><br>(Q4 2026)</td>
+            <td>Интеграция номинальных счетов (ст. 860.1 ГК РФ), авто-выплаты самозанятым и ИП через банковский API в день сделки.</td>
+            <td><span class="tag">Запланировано (Этап 4)</span><br>Юридический комплаенс</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="border: 1.5px solid #000; padding: 8px; margin-top: 4px; background: #FAFAFA;">
+        <h3 style="margin-bottom: 3px;">Заключение и рекомендации для руководства девелопера</h3>
+        <p>Платформа Malinafix переводит партнёрские продажи «АТС Малиновка» из ручного управления в автоматизированный цифровой канал с гарантией защиты сделок. Внедрение субпартнёрской модели «Матрёшка» позволит кратно увеличить приток целевых покупателей участков без увеличения штата отдела продаж и без дополнительных рекламных бюджетов.</p>
+      </div>
+    </div>
+    <div class="page-footer">
+      <span>Malinafix.ru | Презентация платформы</span>
+      <span>Конфиденциально для руководства «АТС Малиновка»</span>
+      <span>Лист 8 из 8</span>
+    </div>
+  </div>
+
+</body>
+</html>
